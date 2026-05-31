@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Maison Auréa — Haute Cosmétique. Where science meets poetry. Award-winning luxury beauty crafted in Paris.">
+<meta name="theme-color" content="#070504">
+<meta property="og:title" content="Maison Auréa — Haute Cosmétique">
+<meta property="og:description" content="Where science meets poetry. Luxury beauty born in Paris.">
+<title>Maison Auréa — Haute Cosmétique</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<!-- GRAIN -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- CURSOR -->
+<div id="cursor-dot"   aria-hidden="true"></div>
+<div id="cursor-ring"  aria-hidden="true"></div>
+<div id="cursor-label" aria-hidden="true"></div>
+
+<!-- PAGE LOADER -->
+<div id="page-loader" aria-hidden="true">
+  <div class="loader-logo">AURÉA</div>
+  <div class="loader-sub">Maison de Cosmétique · Paris</div>
+  <div class="loader-progress"><div class="loader-bar"></div></div>
+  <div class="loader-percent">Loading…</div>
+</div>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" aria-hidden="true"></div>
+
+<!-- CART DRAWER -->
+<aside id="cart-drawer" aria-label="Shopping bag">
+  <div class="cart-header">
+    <div>
+      <div class="cart-title">Your Bag</div>
+      <div class="cart-count-label" id="cart-count-label">0 items</div>
+    </div>
+    <button class="cart-close" id="cart-close" aria-label="Close bag">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-empty" id="cart-empty">
+    <div class="cart-empty-icon">✦</div>
+    <p class="cart-empty-text">Your bag is empty.<br>Discover something beautiful.</p>
+    <a href="pages/shop.html" class="btn btn-ghost"><span>Explore Collection</span></a>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-price" id="cart-subtotal-price">$0</span>
+    </div>
+    <p class="cart-note">Complimentary shipping on orders over $150 · Gift wrapping available</p>
+    <button class="cart-checkout">Proceed to Checkout</button>
+    <a href="pages/shop.html" class="cart-continue">Continue Shopping</a>
+  </div>
+</aside>
+
+<!-- SEARCH OVERLAY -->
+<div id="search-overlay" role="dialog" aria-label="Search">
+  <button class="search-close" id="search-close" aria-label="Close search">Close</button>
+  <div class="search-form">
+    <input type="text" class="search-input" placeholder="Search products, ingredients…" aria-label="Search">
+    <button class="search-submit" aria-label="Submit search">⌕</button>
+  </div>
+  <p class="search-hint">Press ESC to close</p>
+  <div class="search-suggestions">
+    <p class="search-sug-title">Popular searches</p>
+    <div class="search-sug-tags">
+      <span class="sug-tag">Sérum d'Or</span>
+      <span class="sug-tag">Velvet Foundation</span>
+      <span class="sug-tag">Palette Royale</span>
+      <span class="sug-tag">Fragrance</span>
+      <span class="sug-tag">Skincare Sets</span>
+      <span class="sug-tag">Cruelty Free</span>
+      <span class="sug-tag">New Arrivals</span>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" aria-hidden="true">
+  <nav class="mobile-nav-links">
+    <a href="pages/shop.html" class="mobile-nav-link">Shop <span>→</span></a>
+    <a href="#collections"    class="mobile-nav-link">Collections <span>→</span></a>
+    <a href="#ritual"         class="mobile-nav-link">Rituals <span>→</span></a>
+    <a href="#about"          class="mobile-nav-link">Maison <span>→</span></a>
+    <a href="#values"         class="mobile-nav-link">Values <span>→</span></a>
+    <a href="pages/login.html"class="mobile-nav-link">Account <span>→</span></a>
+  </nav>
+  <div class="mobile-footer">
+    <div class="mobile-footer-row">
+      <span class="mobile-location">📍 <span id="mobile-location-text">Detecting location…</span></span>
+    </div>
+    <div class="mobile-footer-row">
+      <a href="#" class="footer-soc">IG</a>
+      <a href="#" class="footer-soc">TT</a>
+      <a href="#" class="footer-soc">PI</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════════════════════ -->
+
+<!-- Announcement Bar -->
+<div class="announce-bar" id="announce-bar">
+  <p>Complimentary shipping on orders over $150 &nbsp;·&nbsp; Free sample with every order</p>
+  <a href="pages/shop.html" class="announce-link">Shop Now</a>
+  <button class="announce-close" id="announce-close" aria-label="Close announcement">✕</button>
+</div>
+
+<!-- Main Nav -->
+<header id="main-nav" role="banner">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo" aria-label="Maison Auréa home">
+      MAISON AURÉA
+      <span class="nav-logo-sub">Haute Cosmétique · Paris</span>
+    </a>
+
+    <!-- Center links with mega menus -->
+    <nav class="nav-links" aria-label="Main navigation">
+
+      <div class="nav-item">
+        <a href="pages/shop.html" class="nav-link">Skincare <span class="caret">▾</span></a>
+        <div class="mega-menu">
+          <div class="mega-featured">
+            <div class="mega-featured-img">
+              <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center">
+                <div style="width:44px;height:12px;background:linear-gradient(145deg,#d4a870,#7a5020);border-radius:3px 3px 0 0"></div>
+                <div style="width:80px;height:160px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(196,160,96,.28),rgba(70,35,12,.45));border-radius:8px 8px 20px 20px;border:1px solid rgba(196,160,96,.3);box-shadow:0 30px 60px rgba(0,0,0,.7)"></div>
+              </div>
+            </div>
+            <div class="mega-featured-label">
+              <small>Hero Product</small>
+              <span>Sérum d'Or Précieux</span>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Serums & Treatments</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Sérum d'Or Précieux</span><span class="mega-link-tag">Bestseller</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Algae Renewal Serum</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Vitamin C Brightening</span><span class="mega-link-tag">New</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Retinol Night Repair</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Eye Contour Elixir</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Moisturisers</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Velvet Day Cream</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Rich Night Balm</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Hydration Burst Gel</span><span class="mega-link-tag">New</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">SPF 50 Invisible Shield</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Cleansers</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Micellar Oil Cleanser</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Exfoliating Enzyme Mask</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Rose Toning Mist</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">View All Skincare →</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="pages/shop.html" class="nav-link">Makeup <span class="caret">▾</span></a>
+        <div class="mega-menu">
+          <div class="mega-featured">
+            <div class="mega-featured-img">
+              <div style="position:relative;z-index:2">
+                <div style="width:150px;height:95px;border-radius:8px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(60,28,8,.5));border:1px solid rgba(196,160,96,.22);display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px">
+                  <div style="border-radius:3px;background:#c87860"></div><div style="border-radius:3px;background:#8a3020"></div><div style="border-radius:3px;background:#d4b090"></div><div style="border-radius:3px;background:#5a1808"></div>
+                  <div style="border-radius:3px;background:#e0b880"></div><div style="border-radius:3px;background:#402010"></div><div style="border-radius:3px;background:#b86040"></div><div style="border-radius:3px;background:#280808"></div>
+                </div>
+              </div>
+            </div>
+            <div class="mega-featured-label">
+              <small>Signature</small>
+              <span>Palette Royale</span>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Face</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Velvet Foundation</span><span class="mega-link-tag">SPF 35</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Satin Concealer</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Luminous Blush</span><span class="mega-link-tag">New</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Gold Highlighter</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Eyes & Lips</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Palette Royale</span><span class="mega-link-tag">Bestseller</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Noir Extrême Mascara</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Liner Trilogy Set</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Velvet Lip Colour</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Sets & Gifts</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">La Routine Complète</span><span class="mega-link-tag">Best Value</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">The Edit — Makeup</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Gift Sets</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">View All Makeup →</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="pages/shop.html" class="nav-link">Fragrance <span class="caret">▾</span></a>
+        <div class="mega-menu" style="grid-template-columns:2fr 1fr 1fr">
+          <div class="mega-featured">
+            <div class="mega-featured-img">
+              <div style="width:80px;height:140px;border-radius:40px 40px 16px 16px;background:linear-gradient(155deg,rgba(255,255,255,.07),rgba(122,144,112,.28),rgba(40,60,40,.42));border:1px solid rgba(122,144,112,.26);box-shadow:0 28px 64px rgba(0,0,0,.75)"></div>
+            </div>
+            <div class="mega-featured-label">
+              <small>Signature Scent</small>
+              <span>Eau de Lumière</span>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Eau de Parfum</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Eau de Lumière</span><span class="mega-link-tag">Icon</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Nuit de Velours</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Rose Sauvage</span><span class="mega-link-tag">New</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Ambre Précieux</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Body & Home</span>
+            <div class="mega-links">
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Scented Body Lotion</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Perfumed Hair Mist</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">Luxury Candle</span></a>
+              <a href="pages/shop.html" class="mega-link"><span class="mega-link-name">View All →</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="#about" class="nav-link">Maison <span class="caret">▾</span></a>
+        <div class="mega-menu" style="grid-template-columns:2fr 1fr 1fr">
+          <div class="mega-featured" style="background:linear-gradient(145deg,var(--mid),var(--charcoal))">
+            <div class="mega-featured-img">
+              <div style="text-align:center;padding:20px">
+                <div style="font-family:'Cinzel',serif;font-size:40px;color:rgba(196,160,96,.2);margin-bottom:8px">2017</div>
+                <div style="font-size:9px;letter-spacing:.4em;color:rgba(240,232,220,.3)">EST. PARIS</div>
+              </div>
+            </div>
+            <div class="mega-featured-label">
+              <small>Our Story</small>
+              <span>Born from passion, refined by science</span>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">About Us</span>
+            <div class="mega-links">
+              <a href="#about"  class="mega-link"><span class="mega-link-name">Our Story</span></a>
+              <a href="#values" class="mega-link"><span class="mega-link-name">Our Values</span></a>
+              <a href="#ritual" class="mega-link"><span class="mega-link-name">The Ritual</span></a>
+              <a href="#"       class="mega-link"><span class="mega-link-name">Ingredients</span></a>
+              <a href="#"       class="mega-link"><span class="mega-link-name">Sustainability</span></a>
+            </div>
+          </div>
+          <div>
+            <span class="mega-col-title">Press & More</span>
+            <div class="mega-links">
+              <a href="#" class="mega-link"><span class="mega-link-name">Press & Awards</span></a>
+              <a href="#" class="mega-link"><span class="mega-link-name">Stockists</span></a>
+              <a href="#" class="mega-link"><span class="mega-link-name">Careers</span></a>
+              <a href="#" class="mega-link"><span class="mega-link-name">Contact Us</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a href="pages/shop.html" class="nav-link" style="color:var(--rose)">Sale</a>
+      </div>
+    </nav>
+
+    <!-- Right actions -->
+    <div class="nav-right">
+      <!-- Location -->
+      <button class="nav-location" id="nav-location-btn" title="Your location">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/></svg>
+        <span class="nav-location-text">Locating…</span>
+      </button>
+      <!-- Search -->
+      <button class="nav-icon-btn" id="search-open" aria-label="Search">⌕</button>
+      <!-- Wishlist -->
+      <a href="#" class="nav-icon-btn" aria-label="Wishlist">♡</a>
+      <!-- Account -->
+      <a href="pages/login.html" class="nav-icon-btn" aria-label="Account">👤</a>
+      <!-- Cart -->
+      <button class="nav-icon-btn" id="cart-btn" aria-label="Shopping bag" style="position:relative">
+        🛍
+        <span class="badge cart-badge" id="cart-badge">0</span>
+      </button>
+      <!-- CTA -->
+      <a href="pages/shop.html" class="nav-cta">Shop Now</a>
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero" aria-label="Hero">
+
+  <!-- Left content -->
+  <div class="hero-left">
+    <span class="hero-sup">Collection SS25 · Paris</span>
+    <h1 class="hero-h1">
+      <span class="l1">The Art</span>
+      <span class="l2">of Becoming</span>
+      <span class="l3">Beautiful</span>
+    </h1>
+    <p class="hero-desc">
+      Where rare botanicals meet modern alchemy. Each formula is an 18-month devotion — crafted for skin that glows with the quiet confidence of knowing itself.
+    </p>
+
+    <!-- Social proof -->
+    <div class="hero-social-proof" style="margin-bottom:40px">
+      <div class="sp-avatars">
+        <div class="sp-avatar sp-a1">S</div>
+        <div class="sp-avatar sp-a2">M</div>
+        <div class="sp-avatar sp-a3">A</div>
+        <div class="sp-avatar sp-a4">J</div>
+      </div>
+      <div>
+        <div class="hero-stars">★★★★★</div>
+        <p class="sp-text"><strong>12,400+</strong> reviews · 4.9/5</p>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="pages/shop.html" class="btn btn-solid magnetic"><span>Explore Collection</span></a>
+      <a href="#ritual" class="btn btn-link">Our Philosophy</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-track"><div class="hero-scroll-thumb"></div></div>
+      <span class="hero-scroll-label">Scroll</span>
+    </div>
+  </div>
+
+  <!-- Right visual -->
+  <div class="hero-right" aria-hidden="true">
+    <div class="hero-bg"></div>
+    <div class="hero-orb orb-a"></div>
+    <div class="hero-orb orb-b"></div>
+    <div class="hero-orb orb-c"></div>
+
+    <div class="hero-rings">
+      <div class="hero-ring ring-1"></div>
+      <div class="hero-ring ring-2"></div>
+      <div class="hero-ring ring-3"></div>
+    </div>
+
+    <div class="hero-product-wrap">
+      <div class="hero-product">
+        <!-- Satellites -->
+        <div class="sat-wrap s1">
+          <div class="sat-palette">
+            <div class="ps ps1"></div><div class="ps ps2"></div><div class="ps ps3"></div>
+            <div class="ps ps4"></div><div class="ps ps5"></div><div class="ps ps6"></div>
+          </div>
+        </div>
+        <div class="sat-wrap s2"><div class="sat-lip-tube"></div></div>
+        <div class="sat-wrap s3"><div class="sat-compact"></div></div>
+        <div class="sat-wrap s4"><div class="sat-mascara"></div></div>
+
+        <!-- Main bottle -->
+        <div class="bottle-group">
+          <div class="b-cap"></div>
+          <div class="b-neck"></div>
+          <div class="b-body">
+            <div class="b-shine-1"></div>
+            <div class="b-shine-2"></div>
+            <span class="b-label-brand">AURÉA</span>
+            <div class="b-label-div"></div>
+            <span class="b-label-name">Sérum d'Or</span>
+          </div>
+        </div>
+        <p class="hero-product-label">Gold Radiance Serum — $185</p>
+      </div>
+    </div>
+
+    <!-- Stat strip -->
+    <div class="hero-stat-strip">
+      <div class="hss-item">
+        <span class="hss-num count-up" data-target="96" data-suffix="%">96%</span>
+        <span class="hss-lbl">Natural Origin</span>
+      </div>
+      <div class="hss-item">
+        <span class="hss-num count-up" data-target="40" data-suffix="+">40+</span>
+        <span class="hss-lbl">Global Awards</span>
+      </div>
+      <div class="hss-item">
+        <span class="hss-num">18M</span>
+        <span class="hss-lbl">Dev. Per Product</span>
+      </div>
+      <div class="hss-item">
+        <span class="hss-num count-up" data-target="12400" data-suffix="+">12.4k+</span>
+        <span class="hss-lbl">5-Star Reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Cruelty Free</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Ethically Sourced</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Dermatologist Tested</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">40+ Global Awards</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Vegan Certified</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sustainable Packaging</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Free From Parabens</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">96% Natural Origin</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cruelty Free</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Ethically Sourced</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Dermatologist Tested</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">40+ Global Awards</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Vegan Certified</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sustainable Packaging</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Free From Parabens</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">96% Natural Origin</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-row forward">
+    <span class="mq-word mq-outline">RADIANCE</span><span class="mq-word mq-fill">LUMIÈRE</span>
+    <span class="mq-word mq-outline">RITUAL</span><span class="mq-word mq-fill">BEAUTÉ</span>
+    <span class="mq-word mq-outline">ÉCLAT</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">RADIANCE</span><span class="mq-word mq-fill">LUMIÈRE</span>
+    <span class="mq-word mq-outline">RITUAL</span><span class="mq-word mq-fill">BEAUTÉ</span>
+    <span class="mq-word mq-outline">ÉCLAT</span><span class="mq-word mq-fill">NATURE</span>
+  </div>
+  <div class="marquee-row backward">
+    <span class="mq-word mq-fill">GLOW</span><span class="mq-word mq-outline">ESSENCE</span>
+    <span class="mq-word mq-fill">VELVET</span><span class="mq-word mq-outline">MAISON</span>
+    <span class="mq-word mq-fill">AURÉA</span><span class="mq-word mq-outline">PARIS</span>
+    <span class="mq-word mq-fill">GLOW</span><span class="mq-word mq-outline">ESSENCE</span>
+    <span class="mq-word mq-fill">VELVET</span><span class="mq-word mq-outline">MAISON</span>
+    <span class="mq-word mq-fill">AURÉA</span><span class="mq-word mq-outline">PARIS</span>
+  </div>
+</div>
+
+<!-- PRESS BAR -->
+<div class="press-bar" aria-label="As seen in">
+  <span class="press-label">As seen in</span>
+  <div class="press-logos">
+    <span class="press-logo">VOGUE</span>
+    <span class="press-logo">ALLURE</span>
+    <span class="press-logo">ELLE</span>
+    <span class="press-logo">HARPER'S BAZAAR</span>
+    <span class="press-logo">WWD</span>
+    <span class="press-logo">INSTYLE</span>
+    <span class="press-logo">GLAMOUR</span>
+  </div>
+</div>
+
+<!-- CATEGORY STRIP -->
+<section class="category-strip" id="categories" aria-label="Shop by category">
+  <div class="s-header" data-reveal="up">
+    <p class="eyebrow">Shop by Category</p>
+    <h2>Find your <em>ritual</em></h2>
+  </div>
+  <div class="cat-grid stagger-children">
+    <a href="pages/shop.html?cat=skincare" class="cat-card">
+      <div class="cat-icon">🌿</div>
+      <span class="cat-name">Skincare</span>
+      <span class="cat-count">24 products</span>
+    </a>
+    <a href="pages/shop.html?cat=makeup" class="cat-card">
+      <div class="cat-icon">💄</div>
+      <span class="cat-name">Makeup</span>
+      <span class="cat-count">18 products</span>
+    </a>
+    <a href="pages/shop.html?cat=fragrance" class="cat-card">
+      <div class="cat-icon">🌸</div>
+      <span class="cat-name">Fragrance</span>
+      <span class="cat-count">8 products</span>
+    </a>
+    <a href="pages/shop.html?cat=body" class="cat-card">
+      <div class="cat-icon">✨</div>
+      <span class="cat-name">Body</span>
+      <span class="cat-count">12 products</span>
+    </a>
+    <a href="pages/shop.html?cat=sets" class="cat-card">
+      <div class="cat-icon">🎁</div>
+      <span class="cat-name">Gift Sets</span>
+      <span class="cat-count">6 sets</span>
+    </a>
+    <a href="pages/shop.html?cat=new" class="cat-card">
+      <div class="cat-icon">⭐</div>
+      <span class="cat-name">New In</span>
+      <span class="cat-count">5 new</span>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PRODUCTS BENTO GRID
+══════════════════════════════════════════════════════════ -->
+<section class="products-section" id="collections" aria-label="Product collection">
+  <div class="s-header center" data-reveal="up">
+    <p class="eyebrow">The Collection</p>
+    <h2>Our <em>signature</em> formulas</h2>
+    <p>Eighteen months of devotion distilled into each bottle, each compact, each ritual.</p>
+  </div>
+
+  <div class="products-bento">
+
+    <!-- HERO PRODUCT -->
+    <article class="pc pc-hero" data-reveal="left">
+      <div class="pc-badge badge-new">Bestseller</div>
+      <button class="pc-wishlist" data-id="serum-or" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-h">
+        <div class="pc-bg pcbg-1"></div>
+        <div class="pc-icon">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div style="width:50px;height:30px;background:linear-gradient(145deg,#d4a870,#7a5020);border-radius:5px 5px 0 0;box-shadow:0 -6px 24px rgba(196,160,96,.2)"></div>
+            <div style="width:36px;height:14px;background:linear-gradient(160deg,#b49050,#5a3a18)"></div>
+            <div class="psi-serum-tall"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-info pc-info-lg">
+        <span class="pc-cat">Skincare · Hero Product</span>
+        <h3 class="pc-name pc-name-lg">Sérum d'Or Précieux</h3>
+        <p class="pc-desc">24k gold peptides, hyaluronic triptych &amp; bio-retinol. Our cult overnight serum that transforms visibly in 28 days — or your money back.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$185</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="serum-or" data-name="Sérum d'Or Précieux"
+            data-price="185" data-icon="✦">
+            <span>Add to Bag</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- FEAT 1 -->
+    <article class="pc pc-feat1" data-reveal="up" data-delay="1">
+      <div class="pc-badge badge-new">New</div>
+      <button class="pc-wishlist" data-id="fragrance-lumiere" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-m">
+        <div class="pc-bg pcbg-2"></div>
+        <div class="pc-icon"><div class="psi-fragrance-rnd"></div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Fragrance</span>
+        <h3 class="pc-name">Eau de Lumière</h3>
+        <p class="pc-desc">Neroli, white musk &amp; aged amber. A scent that enters rooms before you do.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$220</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="fragrance-lumiere" data-name="Eau de Lumière"
+            data-price="220" data-icon="🌸"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- FEAT 2 -->
+    <article class="pc pc-feat2" data-reveal="up" data-delay="2">
+      <button class="pc-wishlist" data-id="foundation" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-m">
+        <div class="pc-bg pcbg-3"></div>
+        <div class="pc-icon"><div class="psi-compact-wide"></div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Makeup</span>
+        <h3 class="pc-name">Velvet Foundation</h3>
+        <p class="pc-desc">Weightless coverage. 72h hydration. SPF 35. Skin, but impossibly better.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$95</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="foundation" data-name="Velvet Foundation"
+            data-price="95" data-icon="💄"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- FEAT 3 -->
+    <article class="pc pc-feat3" data-reveal="up" data-delay="1">
+      <div class="pc-badge badge-sale">Sale</div>
+      <button class="pc-wishlist" data-id="palette" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-m">
+        <div class="pc-bg pcbg-4"></div>
+        <div class="pc-icon"><div class="psi-palette-lg">
+          <div class="pw pw1"></div><div class="pw pw2"></div><div class="pw pw3"></div><div class="pw pw4"></div>
+          <div class="pw pw5"></div><div class="pw pw6"></div><div class="pw pw7"></div><div class="pw pw8"></div>
+        </div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Makeup</span>
+        <h3 class="pc-name">Palette Royale</h3>
+        <p class="pc-desc">Twelve curated shades from dusk to dawn — pressed pigment at its finest.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$145</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="palette" data-name="Palette Royale"
+            data-price="145" data-icon="🎨"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- FEAT 4 -->
+    <article class="pc pc-feat4" data-reveal="up" data-delay="2">
+      <button class="pc-wishlist" data-id="mascara" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-m">
+        <div class="pc-bg pcbg-5"></div>
+        <div class="pc-icon"><div class="psi-mascara-tall"></div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Eye</span>
+        <h3 class="pc-name">Noir Extrême</h3>
+        <p class="pc-desc">Carbon-black lengthening mascara with tubing formula. All-day gravity-defying wear.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$65</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="mascara" data-name="Noir Extrême Mascara"
+            data-price="65" data-icon="👁"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- WIDE 1 -->
+    <article class="pc pc-wide1" data-reveal="up">
+      <button class="pc-wishlist" data-id="cream" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-r">
+        <div class="pc-bg pcbg-6"></div>
+        <div class="pc-icon"><div class="psi-cream-jar"></div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Body</span>
+        <h3 class="pc-name">Crème Botanique</h3>
+        <p class="pc-desc">Blue agave &amp; Rose de Mai body elixir for skin that glows from within.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$120</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="cream" data-name="Crème Botanique"
+            data-price="120" data-icon="🌿"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- WIDE 2 -->
+    <article class="pc pc-wide2" data-reveal="up" data-delay="1">
+      <button class="pc-wishlist" data-id="liner" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-r">
+        <div class="pc-bg pcbg-7"></div>
+        <div class="pc-icon"><div class="psi-eye-liner-trio">
+          <div class="psi-e psi-e1"></div>
+          <div class="psi-e psi-e2"></div>
+          <div class="psi-e psi-e3"></div>
+        </div></div>
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">Eye</span>
+        <h3 class="pc-name">Liner Trilogy</h3>
+        <p class="pc-desc">Three precision liners — jet black, deep plum, warm cocoa — for every mood.</p>
+        <div class="pc-foot">
+          <span class="pc-price">$78</span>
+          <button class="btn btn-ghost pc-add add-to-cart"
+            data-id="liner" data-name="Liner Trilogy"
+            data-price="78" data-icon="✏️"><span>Add to Bag</span></button>
+        </div>
+      </div>
+    </article>
+
+    <!-- WIDE 3 — Set -->
+    <article class="pc pc-wide3" data-reveal="right">
+      <div class="pc-badge badge-new">Best Value</div>
+      <button class="pc-wishlist" data-id="routine-set" aria-label="Add to wishlist">♡</button>
+      <div class="pc-vis pc-vis-r">
+        <div class="pc-bg" style="background:linear-gradient(150deg,#1a0808,#3a0e10)"></div>
+        <div class="pc-icon">
+          <div class="psi-trio">
+            <div class="psi-trio-t pt1"></div>
+            <div class="psi-trio-t pt2"></div>
+            <div class="psi-trio-t pt3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-info pc-info-lg">
+        <span class="pc-cat">Set · Best Value</span>
+        <h3 class="pc-name pc-name-lg">La Routine Complète</h3>
+        <p class="pc-desc">Our complete morning &amp; evening ritual. Cleanser, serum, moisturiser &amp; SPF — everything your skin craves, curated into one beautiful collection.</p>
+        <div class="pc-foot">
+          <div>
+            <span class="pc-price">$340</span>
+            <span style="font-size:11px;color:rgba(240,232,220,.28);margin-left:10px;text-decoration:line-through">$460</span>
+          </div>
+          <button class="btn btn-solid pc-add add-to-cart"
+            data-id="routine-set" data-name="La Routine Complète"
+            data-price="340" data-icon="✦"><span>Shop the Set</span></button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div style="text-align:center;margin-top:52px" data-reveal="up">
+    <a href="pages/shop.html" class="btn btn-ghost magnetic"><span>View All Products</span></a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════════════ -->
+<section class="about-section" id="about" aria-label="About Maison Auréa">
+  <div class="about-visual" data-reveal="left">
+    <div class="about-frame">
+      <div class="about-frame-border"></div>
+      <div class="about-frame-corner afc-tl"></div>
+      <div class="about-frame-corner afc-tr"></div>
+      <div class="about-frame-corner afc-bl"></div>
+      <div class="about-frame-corner afc-br"></div>
+      <div class="about-frame-inner">
+        <div class="frame-deco">
+          <div class="fd-row">
+            <div class="fd-tube fd-t1"></div>
+            <div class="fd-tube fd-t2"></div>
+            <div class="fd-tube fd-t3"></div>
+          </div>
+          <div class="fd-pal">
+            <div class="fd-sw fs1"></div><div class="fd-sw fs2"></div>
+            <div class="fd-sw fs3"></div><div class="fd-sw fs4"></div>
+            <div class="fd-sw fs5"></div><div class="fd-sw fs6"></div>
+            <div class="fd-sw fs7"></div><div class="fd-sw fs8"></div>
+          </div>
+          <div class="fd-jar"></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-badge">
+      <span class="ab-num">2017</span>
+      <span class="ab-txt">Est. Paris,<br>France</span>
+    </div>
+  </div>
+
+  <div class="about-text">
+    <div class="s-header" data-reveal="up">
+      <p class="eyebrow">Our Maison</p>
+      <h2>Born from <em>passion,</em><br>refined by science</h2>
+    </div>
+    <p class="about-body t-body-serif" data-reveal="up" data-delay="1">
+      Maison Auréa was founded in a small Parisian atelier, where a biochemist and a poet decided that luxury beauty should feel like both a scientific discovery and a homecoming.
+    </p>
+    <p class="about-body t-body-serif" style="font-size:15px" data-reveal="up" data-delay="2">
+      Every product undergoes 18 months of meticulous formulation before it earns the right to bear our name. We collaborate with master botanists, Provençal harvesters, and ethicists to ensure every ingredient is as kind as it is transformative.
+    </p>
+    <div class="ingredient-cloud" data-reveal="up" data-delay="2">
+      <span class="ing-pill">Rose de Mai</span>
+      <span class="ing-pill">Gold Peptides</span>
+      <span class="ing-pill">Neroli Extract</span>
+      <span class="ing-pill">Squalane</span>
+      <span class="ing-pill">Blue Agave</span>
+      <span class="ing-pill">Bakuchiol</span>
+      <span class="ing-pill">Sea Kelp</span>
+      <span class="ing-pill">Vitamin C</span>
+    </div>
+    <div class="about-stats-grid">
+      <div class="a-stat" data-reveal="up" data-delay="1">
+        <span class="a-stat-n count-up" data-target="18" data-suffix="M">18M</span>
+        <span class="a-stat-l">Months Dev.</span>
+      </div>
+      <div class="a-stat" data-reveal="up" data-delay="2">
+        <span class="a-stat-n count-up" data-target="96" data-suffix="%">96%</span>
+        <span class="a-stat-l">Natural Origin</span>
+      </div>
+      <div class="a-stat" data-reveal="up" data-delay="3">
+        <span class="a-stat-n count-up" data-target="40" data-suffix="+">40+</span>
+        <span class="a-stat-l">Global Awards</span>
+      </div>
+    </div>
+    <div style="margin-top:44px" data-reveal="up" data-delay="3">
+      <a href="#values" class="btn btn-ghost magnetic"><span>Our Commitments</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     RITUAL
+══════════════════════════════════════════════════════════ -->
+<section class="ritual-section" id="ritual" aria-label="Our ritual philosophy">
+  <div class="ritual-inner">
+    <div class="s-header center" data-reveal="up">
+      <p class="eyebrow">The Philosophy</p>
+    </div>
+    <div class="ritual-ornament" data-reveal="scale">✦ · ✦ · ✦</div>
+    <div class="ritual-divider-v" data-reveal="up"></div>
+    <blockquote class="ritual-quote" data-reveal="up" data-delay="1">
+      Beauty is not a destination — it is a daily devotion, a whispered conversation between who you are and who you are quietly, brilliantly becoming.
+    </blockquote>
+    <div data-reveal="up" data-delay="2">
+      <a href="pages/shop.html" class="btn btn-solid magnetic"><span>Begin Your Ritual</span></a>
+    </div>
+    <div class="ritual-steps">
+      <div class="rstep" data-reveal="up">
+        <span class="rs-num">01</span>
+        <div class="rs-line"></div>
+        <span class="rs-title">Cleanse</span>
+        <p class="rs-desc">Begin in stillness. Remove the day with our micellar oil-to-milk botanical cleanser, formulated for all skin types and all souls.</p>
+      </div>
+      <div class="rstep" data-reveal="up" data-delay="1">
+        <span class="rs-num">02</span>
+        <div class="rs-line"></div>
+        <span class="rs-title">Restore</span>
+        <p class="rs-desc">Layer our gold-infused serum and let the peptides perform their quiet, overnight transformation while you rest and dream.</p>
+      </div>
+      <div class="rstep" data-reveal="up" data-delay="2">
+        <span class="rs-num">03</span>
+        <div class="rs-line"></div>
+        <span class="rs-title">Illuminate</span>
+        <p class="rs-desc">Apply colour with intention. Every stroke from our Palette Royale is an act of pure, unhurried, unapologetic self-expression.</p>
+      </div>
+      <div class="rstep" data-reveal="up" data-delay="3">
+        <span class="rs-num">04</span>
+        <div class="rs-line"></div>
+        <span class="rs-title">Radiate</span>
+        <p class="rs-desc">Step out wearing your truest self — luminous, centred, and entirely, undeniably, beautifully your own.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VALUES
+══════════════════════════════════════════════════════════ -->
+<section class="values-section" id="values" aria-label="Our values and commitments">
+  <div class="s-header" data-reveal="up">
+    <p class="eyebrow">Our Commitments</p>
+    <h2>What we <em>stand</em> for</h2>
+  </div>
+  <div class="val-grid">
+    <div class="vcard" data-reveal="up">
+      <div class="vcard-icon">🌿</div>
+      <span class="vcard-title">Pure Ingredients</span>
+      <p class="vcard-desc">96% naturally-derived, ethically harvested from sustainable farms across 14 countries. No parabens, no sulfates, no compromise. Ever.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="1">
+      <div class="vcard-icon">🐇</div>
+      <span class="vcard-title">Cruelty Free Forever</span>
+      <p class="vcard-desc">Leaping Bunny certified since day one. Every product is tested only by consenting human volunteers. Always. No exceptions. Always.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="2">
+      <div class="vcard-icon">♻️</div>
+      <span class="vcard-title">Circular Packaging</span>
+      <p class="vcard-desc">80% recycled glass in every bottle. Return any empty and we refill it at 40% off. Beauty should leave this world more beautiful than it found it.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="3">
+      <div class="vcard-icon">✦</div>
+      <span class="vcard-title">Radical Transparency</span>
+      <p class="vcard-desc">Full ingredient disclosure, always. Every QR code links to sourcing stories, third-party lab results, and the human beings behind each formula.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     COLLECTION BANNER
+══════════════════════════════════════════════════════════ -->
+<section class="coll-banner" aria-label="The Soleil Collection">
+  <div class="cb-l">
+    <div class="s-header" data-reveal="up">
+      <p class="eyebrow">New Arrival · SS25</p>
+      <h2 class="cb-title">The <em>Soleil</em><br>Collection</h2>
+    </div>
+    <p class="cb-desc" data-reveal="up" data-delay="1">
+      Summer's most luminous chapter. Sun-kissed formulas infused with golden marigold, vitamin C, and Provençal lavender for a glow that needs no filter and no apology.
+    </p>
+    <div data-reveal="up" data-delay="2">
+      <a href="pages/shop.html?col=soleil" class="btn btn-solid magnetic"><span>Discover the Collection</span></a>
+    </div>
+  </div>
+  <div class="cb-r" aria-hidden="true">
+    <div class="cb-orb"></div>
+    <div class="cb-bottles">
+      <div class="cb-bottle cbb1"></div>
+      <div class="cb-bottle cbb2"></div>
+      <div class="cb-bottle cbb3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     TESTIMONIALS
+══════════════════════════════════════════════════════════ -->
+<section class="testimonials-section" id="testimonials" aria-label="Customer testimonials">
+  <div class="s-header center" data-reveal="up">
+    <p class="eyebrow">Client Stories</p>
+    <h2>Stories of <em>transformation</em></h2>
+  </div>
+  <div class="t-grid">
+    <div class="tcard" data-reveal="up">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"The Sérum d'Or changed my relationship with my skin entirely. After six weeks, my dermatologist asked what I had changed. My answer was — everything."</p>
+      <div class="t-author">
+        <div class="t-av tav1">S</div>
+        <div>
+          <span class="t-name">Sophia Laurent</span>
+          <span class="t-role">Architect, Paris</span>
+        </div>
+      </div>
+    </div>
+    <div class="tcard" data-reveal="up" data-delay="1">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I have tried luxury cosmetics from dozens of houses. Maison Auréa is the first brand where I genuinely feel the philosophy in every texture, every scent, every morning."</p>
+      <div class="t-author">
+        <div class="t-av tav2">M</div>
+        <div>
+          <span class="t-name">Mia Thornton</span>
+          <span class="t-role">Creative Director, London</span>
+        </div>
+      </div>
+    </div>
+    <div class="tcard" data-reveal="up" data-delay="2">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"The Palette Royale stays pristine through 14-hour editorial shoots. The pigmentation, the blendability — nothing else comes close at any price point, period."</p>
+      <div class="t-author">
+        <div class="t-av tav3">A</div>
+        <div>
+          <span class="t-name">Aisha Chen</span>
+          <span class="t-role">Senior Makeup Artist, New York</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     INSTAGRAM
+══════════════════════════════════════════════════════════ -->
+<section class="insta-section" aria-label="Instagram community">
+  <div class="insta-top" data-reveal="up">
+    <div>
+      <div class="s-header" style="margin-bottom:0">
+        <p class="eyebrow">The Community</p>
+        <h2 style="font-size:36px">#MaisonAuréa</h2>
+      </div>
+    </div>
+    <a href="#" class="insta-handle" target="_blank" rel="noopener">✦ &nbsp;Follow @maisonaurea</a>
+  </div>
+  <div class="ig-grid">
+    <div class="ig-cell"><div class="ig-bg ig1"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell"><div class="ig-bg ig2"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell"><div class="ig-bg ig3"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell"><div class="ig-bg ig4"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell"><div class="ig-bg ig5"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell"><div class="ig-bg ig6"></div><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     NEWSLETTER
+══════════════════════════════════════════════════════════ -->
+<section class="newsletter-section" aria-label="Newsletter signup">
+  <div class="nl-inner">
+    <div class="nl-div" data-reveal="up" aria-hidden="true"></div>
+    <div class="s-header center" data-reveal="up">
+      <p class="eyebrow">Inner Circle</p>
+      <h2>Join the <em>Auréa</em> Circle</h2>
+    </div>
+    <p class="nl-sub" data-reveal="up" data-delay="1">
+      Early access to new collections, members-only rituals, and beauty secrets from our Parisian atelier — delivered to your inbox, once a month. Never more.
+    </p>
+    <div class="nl-form" data-reveal="up" data-delay="2">
+      <input type="email" class="nl-input" placeholder="Your email address" aria-label="Email address">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+    <p class="nl-note" data-reveal="up" data-delay="3">No spam. Unsubscribe anytime. Your privacy is sacred to us.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-top">
+    <div>
+      <span class="footer-brand">MAISON AURÉA</span>
+      <p class="footer-tagline">Where science meets poetry. Haute cosmétique for the modern ritualist. Born in Paris. Loved everywhere.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-soc" aria-label="Instagram">IG</a>
+        <a href="#" class="footer-soc" aria-label="TikTok">TK</a>
+        <a href="#" class="footer-soc" aria-label="Pinterest">PI</a>
+        <a href="#" class="footer-soc" aria-label="YouTube">YT</a>
+        <a href="#" class="footer-soc" aria-label="Facebook">FB</a>
+      </div>
+      <div style="margin-top:28px">
+        <span class="footer-col-title" style="display:block;margin-bottom:12px">Stay in touch</span>
+        <div class="footer-newsletter-mini">
+          <input type="email" class="footer-nl-in" placeholder="Email address" aria-label="Email">
+          <button class="footer-nl-btn">Join</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="footer-col-title">Shop</span>
+      <ul class="footer-links">
+        <li><a href="pages/shop.html?cat=skincare">Skincare</a></li>
+        <li><a href="pages/shop.html?cat=makeup">Makeup</a></li>
+        <li><a href="pages/shop.html?cat=fragrance">Fragrance</a></li>
+        <li><a href="pages/shop.html?cat=body">Body</a></li>
+        <li><a href="pages/shop.html?cat=new">New Arrivals</a></li>
+        <li><a href="pages/shop.html?cat=sale">Sale</a></li>
+        <li><a href="pages/shop.html?cat=sets">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Maison</span>
+      <ul class="footer-links">
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#values">Ingredients</a></li>
+        <li><a href="#values">Sustainability</a></li>
+        <li><a href="#">Press &amp; Awards</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Stockists</a></li>
+        <li><a href="#">Wholesale</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-title">Support</span>
+      <ul class="footer-links">
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Shipping &amp; Returns</a></li>
+        <li><a href="#">Shade Finder</a></li>
+        <li><a href="#">Routine Builder</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Loyalty Program</a></li>
+        <li><a href="pages/login.html">My Account</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Maison Auréa. All rights reserved.</span>
+    <div class="footer-payment">
+      <span class="pay-icon">VISA</span>
+      <span class="pay-icon">MC</span>
+      <span class="pay-icon">AMEX</span>
+      <span class="pay-icon">PayPal</span>
+      <span class="pay-icon">ApplePay</span>
+    </div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Back to top">↑</button>
+
+<script src="js/main.js"></script>
+<script>
+  // Location display
+  fetch('https://ipapi.co/json/')
+    .then(r => r.json())
+    .then(d => {
+      const txt = d.city ? d.city + ', ' + d.country_code : 'Global';
+      document.querySelectorAll('.nav-location-text, #mobile-location-text').forEach(el => el.textContent = txt);
+    }).catch(() => {
+      document.querySelectorAll('.nav-location-text, #mobile-location-text').forEach(el => el.textContent = 'Global');
+    });
+
+  // Announce bar height offset
+  const bar = document.getElementById('announce-bar');
+  const nav = document.getElementById('main-nav');
+  if (bar && nav) {
+    const setOffset = () => nav.style.top = bar.offsetHeight + 'px';
+    setOffset();
+    new ResizeObserver(setOffset).observe(bar);
+  }
+
+  // Cart footer visibility
+  const cartFooter = document.getElementById('cart-footer');
+  const cartEmpty  = document.getElementById('cart-empty');
+  const observer   = new MutationObserver(() => {
+    const hasItems = document.querySelectorAll('.cart-item').length > 0;
+    if (cartFooter) cartFooter.style.display = hasItems ? 'block' : 'none';
+    if (cartEmpty)  cartEmpty.style.display  = hasItems ? 'none'  : 'flex';
+  });
+  const cartItems = document.getElementById('cart-items');
+  if (cartItems) observer.observe(cartItems, { childList: true });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  hamburger?.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+  });
+</script>
+</body>
+</html>
