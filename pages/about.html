@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Maison — Maison Auréa</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="loader-logo">AURÉA</div>
+  <div class="loader-sub">Our Maison</div>
+  <div class="loader-progress"><div class="loader-bar"></div></div>
+</div>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-header">
+    <div><div class="cart-title">Your Bag</div><div class="cart-count-label" id="cart-count-label">0 items</div></div>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-empty" id="cart-empty"><div class="cart-empty-icon">✦</div><p class="cart-empty-text">Your bag is empty.</p></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal</span><span class="cart-subtotal-price" id="cart-subtotal-price">$0</span></div>
+    <button class="cart-checkout">Proceed to Checkout</button>
+    <a href="checkout.html" class="cart-continue">Checkout</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button class="search-close" id="search-close">Close</button>
+  <div class="search-form"><input type="text" class="search-input" placeholder="Search products…"><button class="search-submit">⌕</button></div>
+  <p class="search-hint">Press ESC to close</p>
+</div>
+<div id="mobile-menu">
+  <nav class="mobile-nav-links">
+    <a href="../index.html" class="mobile-nav-link">Home <span>→</span></a>
+    <a href="shop.html"    class="mobile-nav-link">Shop <span>→</span></a>
+    <a href="login.html"   class="mobile-nav-link">Account <span>→</span></a>
+  </nav>
+</div>
+
+<!-- NAV -->
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150 · Free sample with every order</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">MAISON AURÉA<span class="nav-logo-sub">Haute Cosmétique · Paris</span></a>
+    <nav class="nav-links">
+      <div class="nav-item"><a href="shop.html?cat=skincare" class="nav-link">Skincare</a></div>
+      <div class="nav-item"><a href="shop.html?cat=makeup"   class="nav-link">Makeup</a></div>
+      <div class="nav-item"><a href="shop.html?cat=fragrance"class="nav-link">Fragrance</a></div>
+      <div class="nav-item"><a href="#" class="nav-link active">Maison</a></div>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open">⌕</button>
+      <a href="wishlist.html" class="nav-icon-btn">♡</a>
+      <a href="login.html"    class="nav-icon-btn">👤</a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge" id="cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" aria-hidden="true">
+    <div class="page-hero-orb pho1"></div>
+    <div class="page-hero-orb pho2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow" data-reveal="up">Est. Paris, 2017</div>
+    <h1 class="page-hero-title" data-reveal="up">
+      Our<br><em>Maison</em><br><span class="outline">Auréa</span>
+    </h1>
+    <p class="page-hero-desc" data-reveal="up" data-delay="2">
+      Where a biochemist and a poet decided that beauty should feel like both a scientific discovery and a homecoming. We have never compromised since.
+    </p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section" style="padding:60px 0 0" aria-hidden="true">
+  <div class="marquee-row forward">
+    <span class="mq-word mq-outline">PASSION</span><span class="mq-word mq-fill">SCIENCE</span>
+    <span class="mq-word mq-outline">BEAUTY</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">PARIS</span><span class="mq-word mq-fill">RITUAL</span>
+    <span class="mq-word mq-outline">PASSION</span><span class="mq-word mq-fill">SCIENCE</span>
+    <span class="mq-word mq-outline">BEAUTY</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">PARIS</span><span class="mq-word mq-fill">RITUAL</span>
+  </div>
+</div>
+
+<!-- FOUNDER SECTION -->
+<section class="founder-section">
+  <div class="founder-visual" data-reveal="left">
+    <div class="founder-frame">
+      <div class="founder-frame-corner ffc-tl"></div>
+      <div class="founder-frame-corner ffc-br"></div>
+      <div class="founder-inner">
+        <div class="founder-bottles">
+          <div class="fb-row">
+            <div class="fb-tube fbt1"></div>
+            <div class="fb-tube fbt2"></div>
+            <div class="fb-tube fbt3"></div>
+          </div>
+          <div style="width:110px;height:70px;border-radius:50% 50% 18px 18px;background:linear-gradient(160deg,rgba(196,160,96,.28),rgba(60,28,8,.55));border:1px solid rgba(196,160,96,.2);box-shadow:0 12px 28px rgba(0,0,0,.5)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="founder-badge">
+      <span class="fb-year">2017</span>
+      <span class="fb-label">Founded<br>Paris</span>
+    </div>
+  </div>
+  <div data-reveal="right">
+    <div class="s-header">
+      <p class="eyebrow">The Founders</p>
+      <h2>Born from <em>an unlikely</em> friendship</h2>
+    </div>
+    <blockquote class="founder-quote" data-reveal="up" data-delay="1">
+      We wanted beauty that was honest — that told you exactly what was in it, where it came from, and why it works. That's not radical. That's just respect.
+    </blockquote>
+    <span class="founder-sig">Isabelle Moreau & Dr. Kenji Tanaka</span>
+    <span class="founder-role">Co-Founders, Maison Auréa</span>
+    <p style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.4);line-height:1.9;margin-top:24px" data-reveal="up" data-delay="2">
+      Isabelle, a poet with a philosophy degree from the Sorbonne, and Dr. Kenji Tanaka, a cosmetic biochemist from Kyoto who had spent twelve years in pharmaceutical R&D — they met at a symposium on sustainable ingredient sourcing in Lyon and realised they were both searching for the same thing: beauty without apology.
+    </p>
+    <p style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.4);line-height:1.9;margin-top:14px" data-reveal="up" data-delay="3">
+      They launched Maison Auréa in 2017 from a 40-square-metre atelier in the 6th arrondissement of Paris, with a single serum, a manifesto, and a refusal to compromise.
+    </p>
+    <div style="margin-top:36px" data-reveal="up" data-delay="3">
+      <a href="shop.html" class="btn btn-solid magnetic"><span>Explore Our Collection</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:80px var(--pad-x);background:var(--ink);display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background-color:var(--ink)">
+  <div style="grid-column:1/-1;height:1px;background:var(--line);margin-bottom:2px"></div>
+  <div style="padding:36px 0;border-right:1px solid var(--line)" data-reveal="up">
+    <span class="a-stat-n count-up" data-target="96" data-suffix="%" style="font-family:var(--font-serif);font-size:52px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:8px">96%</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Natural Origin</span>
+  </div>
+  <div style="padding:36px 24px;border-right:1px solid var(--line)" data-reveal="up" data-delay="1">
+    <span class="count-up" data-target="40" data-suffix="+" style="font-family:var(--font-serif);font-size:52px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:8px">40+</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Global Awards</span>
+  </div>
+  <div style="padding:36px 24px;border-right:1px solid var(--line)" data-reveal="up" data-delay="2">
+    <span class="count-up" data-target="68" data-suffix="" style="font-family:var(--font-serif);font-size:52px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:8px">68</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Formulas in Collection</span>
+  </div>
+  <div style="padding:36px 24px" data-reveal="up" data-delay="3">
+    <span class="count-up" data-target="12400" data-suffix="+" style="font-family:var(--font-serif);font-size:52px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:8px">12k+</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">5-Star Reviews</span>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="s-header center" data-reveal="up">
+    <p class="eyebrow">Our Journey</p>
+    <h2>Eight years of <em>devotion</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item" data-reveal="left">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2017</span>
+      <span class="tl-title">The Beginning</span>
+      <p class="tl-desc">Maison Auréa is founded in a 40m² atelier in Paris's 6th arrondissement. Our first product — the Sérum d'Or — is formulated over 14 months.</p>
+    </div>
+    <div class="timeline-line"></div>
+    <div></div>
+
+    <div></div>
+    <div class="timeline-line"></div>
+    <div class="timeline-item" data-reveal="right">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2018</span>
+      <span class="tl-title">First Recognition</span>
+      <p class="tl-desc">Sérum d'Or wins Allure's Best of Beauty. We are stocked in six Parisian boutiques and begin shipping internationally to 12 countries.</p>
+    </div>
+
+    <div class="timeline-item" data-reveal="left">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2019</span>
+      <span class="tl-title">Makeup Launch</span>
+      <p class="tl-desc">Palette Royale and Velvet Foundation launch to critical acclaim. Vogue Paris calls us "the most exciting new beauty house in a decade."</p>
+    </div>
+    <div class="timeline-line"></div>
+    <div></div>
+
+    <div></div>
+    <div class="timeline-line"></div>
+    <div class="timeline-item" data-reveal="right">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2020</span>
+      <span class="tl-title">Sustainability Pledge</span>
+      <p class="tl-desc">We transition to 100% recycled glass packaging and launch our refill programme. We plant one tree for every order placed — 85,000 trees so far.</p>
+    </div>
+
+    <div class="timeline-item" data-reveal="left">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2022</span>
+      <span class="tl-title">Global Expansion</span>
+      <p class="tl-desc">Auréa opens flagship boutiques in London, New York, and Tokyo. We now ship to 40 countries. The collection grows to 68 formulas.</p>
+    </div>
+    <div class="timeline-line"></div>
+    <div></div>
+
+    <div></div>
+    <div class="timeline-line"></div>
+    <div class="timeline-item" data-reveal="right">
+      <div class="tl-dot"></div>
+      <span class="tl-year">2025</span>
+      <span class="tl-title">The Soleil Collection</span>
+      <p class="tl-desc">Our most ambitious collection yet — summer formulas with golden marigold, vitamin C, and Provençal lavender. The next chapter begins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="s-header" data-reveal="up">
+    <p class="eyebrow">The People</p>
+    <h2>The minds <em>behind</em> the magic</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card" data-reveal="up">
+      <div class="team-card-visual">
+        <div class="team-card-avatar tc-av1">I</div>
+      </div>
+      <div class="team-card-info">
+        <span class="team-name">Isabelle Moreau</span>
+        <span class="team-role">Co-Founder · Creative Director</span>
+        <p class="team-bio">Philosophy graduate from the Sorbonne. Isabelle gives every product its soul — its story, its poetry, its reason for existing beyond efficacy.</p>
+      </div>
+    </div>
+    <div class="team-card" data-reveal="up" data-delay="1">
+      <div class="team-card-visual">
+        <div class="team-card-avatar tc-av2">K</div>
+      </div>
+      <div class="team-card-info">
+        <span class="team-name">Dr. Kenji Tanaka</span>
+        <span class="team-role">Co-Founder · Head of Formulation</span>
+        <p class="team-bio">12 years in pharmaceutical R&D before founding Auréa. Kenji leads our 18-month formulation process with obsessive precision and genuine joy.</p>
+      </div>
+    </div>
+    <div class="team-card" data-reveal="up" data-delay="2">
+      <div class="team-card-visual">
+        <div class="team-card-avatar tc-av3">S</div>
+      </div>
+      <div class="team-card-info">
+        <span class="team-name">Sophie Beaumont</span>
+        <span class="team-role">Head of Sustainability</span>
+        <p class="team-bio">Environmental scientist who ensures every decision at Auréa leaves the world better than we found it. Our 85,000 trees are her proudest achievement.</p>
+      </div>
+    </div>
+    <div class="team-card" data-reveal="up" data-delay="3">
+      <div class="team-card-visual">
+        <div class="team-card-avatar tc-av4">M</div>
+      </div>
+      <div class="team-card-info">
+        <span class="team-name">Marcus Reid</span>
+        <span class="team-role">Head of Ingredient Sourcing</span>
+        <p class="team-bio">Travels to 14 countries annually to build relationships with our farmers and harvesters. Every ingredient has a story — Marcus knows them all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<div class="certs-section">
+  <div class="cert-item">
+    <div class="cert-icon">🐇</div>
+    <span class="cert-name">Leaping Bunny</span>
+    <span class="cert-body">Certified cruelty-free</span>
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon">🌿</div>
+    <span class="cert-name">Ecocert</span>
+    <span class="cert-body">Natural & organic</span>
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon">♻️</div>
+    <span class="cert-name">FSC Certified</span>
+    <span class="cert-body">Sustainable packaging</span>
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon">🌱</div>
+    <span class="cert-name">B-Corp Pending</span>
+    <span class="cert-body">Social & environmental</span>
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon">⚗️</div>
+    <span class="cert-name">Derma Tested</span>
+    <span class="cert-body">Clinically proven</span>
+  </div>
+  <div class="cert-item">
+    <div class="cert-icon">🌍</div>
+    <span class="cert-name">Carbon Neutral</span>
+    <span class="cert-body">Offset since 2021</span>
+  </div>
+</div>
+
+<!-- VALUES -->
+<section class="values-section" style="background:var(--ink)">
+  <div class="s-header" data-reveal="up">
+    <p class="eyebrow">Our Commitments</p>
+    <h2>What we <em>stand</em> for</h2>
+  </div>
+  <div class="val-grid">
+    <div class="vcard" data-reveal="up">
+      <div class="vcard-icon">🌿</div>
+      <span class="vcard-title">Pure Ingredients</span>
+      <p class="vcard-desc">96% naturally-derived, ethically harvested from sustainable farms across 14 countries. No parabens, no sulfates, no compromise. We publish our full ingredient lists — always.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="1">
+      <div class="vcard-icon">🐇</div>
+      <span class="vcard-title">Cruelty Free Forever</span>
+      <p class="vcard-desc">Leaping Bunny certified since day one. Every product is tested only by consenting human volunteers. This is not a marketing position — it is a founding principle.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="2">
+      <div class="vcard-icon">♻️</div>
+      <span class="vcard-title">Circular Packaging</span>
+      <p class="vcard-desc">Our bottles use 80% recycled glass. Return any empty and we refill it at 40% off. We have prevented 12 tonnes of virgin glass from entering production since 2020.</p>
+    </div>
+    <div class="vcard" data-reveal="up" data-delay="3">
+      <div class="vcard-icon">✦</div>
+      <span class="vcard-title">Radical Transparency</span>
+      <p class="vcard-desc">Every QR code links to sourcing stories, third-party lab results, and the human beings who harvested each ingredient. We hide nothing. We are proud of everything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="nl-inner">
+    <div class="nl-div" data-reveal="up" aria-hidden="true"></div>
+    <div class="s-header center" data-reveal="up">
+      <p class="eyebrow">Stay Connected</p>
+      <h2>Join the <em>Auréa</em> Circle</h2>
+    </div>
+    <p class="nl-sub" data-reveal="up" data-delay="1">
+      Beauty secrets from our atelier, early access to new collections, and stories from behind the formula — once a month, never more.
+    </p>
+    <div class="nl-form" data-reveal="up" data-delay="2">
+      <input type="email" class="nl-input" placeholder="Your email address">
+      <button class="nl-btn">Subscribe</button>
+    </div>
+    <p class="nl-note" data-reveal="up" data-delay="3">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- FOOTER condensed -->
+<footer style="padding:52px var(--pad-x) 36px;background:#040302;border-top:1px solid var(--line)">
+  <div class="footer-bottom">
+    <a href="../index.html" class="footer-brand" style="font-size:16px">MAISON AURÉA</a>
+    <span class="footer-copy">© 2025 Maison Auréa. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top">↑</button>
+
+<script src="../js/main.js"></script>
+<script src="../js/effects.js"></script>
+<script>
+  document.getElementById('announce-close')?.addEventListener('click', () => {
+    document.getElementById('announce-bar')?.remove();
+    document.getElementById('main-nav').style.top = '0';
+  });
+  const bar = document.getElementById('announce-bar');
+  const nav = document.getElementById('main-nav');
+  if (bar && nav) nav.style.top = bar.offsetHeight + 'px';
+  const cartFooter  = document.getElementById('cart-footer');
+  const cartEmpty   = document.getElementById('cart-empty');
+  const cartItemsEl = document.getElementById('cart-items');
+  if (cartItemsEl) {
+    new MutationObserver(() => {
+      const has = document.querySelectorAll('.cart-item').length > 0;
+      if (cartFooter) cartFooter.style.display = has ? 'block' : 'none';
+      if (cartEmpty)  cartEmpty.style.display  = has ? 'none'  : 'flex';
+    }).observe(cartItemsEl, { childList: true });
+  }
+</script>
+</body>
+</html>

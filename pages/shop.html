@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop All — Maison Auréa</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/animations.css">
+<style>
+/* ── SHOP PAGE SPECIFIC ── */
+.shop-hero {
+  padding: 160px var(--pad-x) 80px;
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+.shop-hero::before {
+  content: 'SHOP';
+  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-display); font-size: 20vw; font-weight: 900;
+  color: rgba(196,160,96,.025); pointer-events: none; line-height: 1;
+}
+.shop-hero-inner { max-width: 600px; }
+.shop-breadcrumb {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 9px; font-weight: 200; letter-spacing: .4em;
+  text-transform: uppercase; color: rgba(240,232,220,.3);
+  margin-bottom: 24px;
+}
+.shop-breadcrumb a { color: inherit; cursor: none; transition: color .2s; }
+.shop-breadcrumb a:hover { color: var(--gold); }
+.shop-breadcrumb span { color: rgba(240,232,220,.15); }
+
+.shop-layout {
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: 0; background: var(--ink); min-height: 80vh;
+}
+
+/* ── SIDEBAR FILTERS ── */
+.shop-sidebar {
+  padding: 48px 40px;
+  border-right: 1px solid var(--line);
+  position: sticky; top: 72px; height: calc(100vh - 72px);
+  overflow-y: auto; background: var(--charcoal);
+}
+.shop-sidebar::-webkit-scrollbar { width: 2px; }
+.shop-sidebar::-webkit-scrollbar-thumb { background: var(--gold-30); }
+
+.filter-section { margin-bottom: 40px; }
+.filter-title {
+  font-size: 8.5px; font-weight: 300; letter-spacing: .52em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 18px; display: flex;
+  align-items: center; justify-content: space-between; cursor: none;
+}
+.filter-toggle { font-size: 14px; color: rgba(240,232,220,.3); transition: transform .3s; }
+.filter-toggle.open { transform: rotate(180deg); }
+.filter-opts { display: flex; flex-direction: column; gap: 0; }
+.filter-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; cursor: none;
+  border-bottom: 1px solid var(--line-soft);
+  transition: padding-left .3s var(--ease-out);
+}
+.filter-opt:hover { padding-left: 6px; }
+.filter-opt input[type="checkbox"] { display: none; }
+.filter-check {
+  width: 14px; height: 14px; border: 1px solid rgba(196,160,96,.25); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .2s, background .2s;
+}
+.filter-opt:has(input:checked) .filter-check {
+  border-color: var(--gold); background: var(--gold);
+  color: var(--void); font-size: 9px;
+}
+.filter-opt:has(input:checked) .filter-check::after { content: '✓'; }
+.filter-opt-name {
+  font-family: var(--font-serif); font-style: italic; font-size: 14px;
+  color: rgba(240,232,220,.5); transition: color .2s; flex: 1;
+}
+.filter-opt:hover .filter-opt-name { color: var(--gold-pale); }
+.filter-opt-count {
+  font-size: 9px; font-weight: 200; color: rgba(240,232,220,.22); letter-spacing: .1em;
+}
+/* Price range */
+.price-range { padding: 8px 0; }
+.range-inputs { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.range-in {
+  flex: 1; padding: 8px 10px;
+  background: rgba(240,232,220,.04);
+  border: 1px solid rgba(196,160,96,.18);
+  color: var(--parchment); font-size: 12px; font-family: var(--font-body);
+  transition: border-color .3s;
+}
+.range-in:focus { border-color: rgba(196,160,96,.5); }
+.range-sep { font-size: 11px; color: rgba(240,232,220,.2); }
+input[type="range"] {
+  width: 100%; appearance: none;
+  height: 1px; background: var(--line); outline: none; cursor: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--gold); cursor: none;
+}
+/* Colour swatches filter */
+.color-swatches-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+.csf-swatch {
+  width: 24px; height: 24px; border-radius: 50%;
+  cursor: none; border: 2px solid transparent;
+  transition: transform .2s var(--ease-spring), border-color .2s;
+}
+.csf-swatch:hover { transform: scale(1.2); }
+.csf-swatch.active { border-color: rgba(240,232,220,.7); }
+/* Filter clear */
+.filter-clear {
+  font-size: 8.5px; font-weight: 200; letter-spacing: .4em;
+  text-transform: uppercase; color: rgba(240,232,220,.25);
+  cursor: none; transition: color .2s;
+  padding: 10px 0; display: block; text-align: center;
+  border-top: 1px solid var(--line); margin-top: 12px;
+}
+.filter-clear:hover { color: var(--rose); }
+
+/* ── SHOP MAIN ── */
+.shop-main { padding: 36px 48px; }
+.shop-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 32px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.shop-count {
+  font-size: 9px; font-weight: 200; letter-spacing: .4em;
+  text-transform: uppercase; color: rgba(240,232,220,.3);
+}
+.shop-count strong { color: var(--gold); font-weight: 300; }
+.shop-controls { display: flex; align-items: center; gap: 16px; }
+.shop-sort {
+  padding: 9px 14px;
+  background: rgba(240,232,220,.04);
+  border: 1px solid rgba(196,160,96,.18);
+  color: rgba(240,232,220,.55);
+  font-family: var(--font-body); font-size: 9px; font-weight: 200;
+  letter-spacing: .3em; text-transform: uppercase;
+  cursor: none;
+}
+.shop-view-btns { display: flex; gap: 4px; }
+.view-btn {
+  width: 32px; height: 32px; border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; font-size: 12px; color: rgba(240,232,220,.3);
+  transition: all .2s;
+}
+.view-btn.active, .view-btn:hover { border-color: var(--gold-30); color: var(--gold); }
+/* Active filters */
+.active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.af-tag {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 9px; font-weight: 200; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(240,232,220,.5); padding: 7px 14px;
+  border: 1px solid rgba(196,160,96,.2);
+}
+.af-tag button { color: rgba(240,232,220,.3); cursor: none; font-size: 12px; transition: color .2s; }
+.af-tag button:hover { color: var(--rose); }
+
+/* Shop product grid */
+.shop-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; background: var(--line);
+}
+.shop-grid.view-2 { grid-template-columns: repeat(2, 1fr); }
+.shop-grid.view-4 { grid-template-columns: repeat(4, 1fr); }
+
+.shop-pc { background: var(--charcoal); position: relative; overflow: hidden; cursor: none; }
+.shop-pc-vis {
+  height: 280px; position: relative;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.shop-pc-bg { position: absolute; inset: 0; transition: transform .7s var(--ease-out); }
+.shop-pc:hover .shop-pc-bg { transform: scale(1.06); }
+.shop-pc-icon { position: relative; z-index: 2; transition: transform .7s var(--ease-out); }
+.shop-pc:hover .shop-pc-icon { transform: translateY(-8px) scale(1.03); }
+.shop-pc-info { padding: 22px 24px 26px; border-top: 1px solid var(--line); }
+.shop-pc-cat { font-size: 7.5px; font-weight: 200; letter-spacing: .5em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; display: block; }
+.shop-pc-name { font-family: var(--font-serif); font-size: 18px; color: var(--parchment); margin-bottom: 6px; }
+.shop-pc-desc { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: rgba(240,232,220,.35); line-height: 1.7; margin-bottom: 16px; }
+.shop-pc-foot { display: flex; justify-content: space-between; align-items: center; }
+.shop-pc-price { font-family: var(--font-display); font-size: 16px; color: var(--gold); }
+.shop-pc-wl {
+  position: absolute; top: 12px; right: 12px; z-index: 5;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(13,10,8,.7); border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(240,232,220,.3); font-size: 13px; cursor: none;
+  opacity: 0; transition: all .3s;
+}
+.shop-pc:hover .shop-pc-wl { opacity: 1; }
+.shop-pc-wl:hover { color: var(--rose); border-color: rgba(200,120,96,.4); }
+
+/* Pagination */
+.shop-pagination {
+  display: flex; align-items: center; justify-content: center;
+  gap: 4px; padding: 60px 0 20px; margin-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.pg-btn {
+  width: 38px; height: 38px; border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-family: var(--font-body); font-weight: 200;
+  color: rgba(240,232,220,.35); cursor: none; transition: all .25s;
+}
+.pg-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(196,160,96,.06); }
+.pg-btn:hover:not(.active) { border-color: rgba(196,160,96,.3); color: var(--gold-pale); }
+.pg-btn.arrow { font-size: 16px; }
+
+@media (max-width: 1100px) {
+  .shop-layout { grid-template-columns: 1fr; }
+  .shop-sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--line); }
+  .shop-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 600px) {
+  .shop-grid { grid-template-columns: 1fr; }
+  .shop-main { padding: 24px var(--pad-x); }
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-label" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="loader-logo">AURÉA</div>
+  <div class="loader-sub">Shop Collection</div>
+  <div class="loader-progress"><div class="loader-bar"></div></div>
+</div>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-header">
+    <div><div class="cart-title">Your Bag</div><div class="cart-count-label" id="cart-count-label">0 items</div></div>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-empty" id="cart-empty">
+    <div class="cart-empty-icon">✦</div>
+    <p class="cart-empty-text">Your bag is empty.</p>
+    <button class="btn btn-ghost" onclick="document.getElementById('cart-close').click()"><span>Keep Shopping</span></button>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal</span><span class="cart-subtotal-price" id="cart-subtotal-price">$0</span></div>
+    <p class="cart-note">Free shipping on orders over $150</p>
+    <button class="cart-checkout">Proceed to Checkout</button>
+    <a href="#" class="cart-continue">Continue Shopping</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button class="search-close" id="search-close">Close</button>
+  <div class="search-form"><input type="text" class="search-input" placeholder="Search products…"><button class="search-submit">⌕</button></div>
+  <p class="search-hint">Press ESC to close</p>
+</div>
+<div id="mobile-menu">
+  <nav class="mobile-nav-links">
+    <a href="../index.html" class="mobile-nav-link">Home <span>→</span></a>
+    <a href="shop.html" class="mobile-nav-link">Shop <span>→</span></a>
+    <a href="login.html" class="mobile-nav-link">Account <span>→</span></a>
+  </nav>
+</div>
+
+<!-- NAV -->
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping over $150 · Free sample with every order</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">MAISON AURÉA<span class="nav-logo-sub">Haute Cosmétique · Paris</span></a>
+    <nav class="nav-links">
+      <div class="nav-item"><a href="shop.html?cat=skincare" class="nav-link">Skincare</a></div>
+      <div class="nav-item"><a href="shop.html?cat=makeup" class="nav-link">Makeup</a></div>
+      <div class="nav-item"><a href="shop.html?cat=fragrance" class="nav-link">Fragrance</a></div>
+      <div class="nav-item"><a href="shop.html?cat=body" class="nav-link">Body</a></div>
+      <div class="nav-item"><a href="shop.html?cat=sale" class="nav-link" style="color:var(--rose)">Sale</a></div>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open">⌕</button>
+      <a href="#" class="nav-icon-btn">♡</a>
+      <a href="login.html" class="nav-icon-btn">👤</a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge" id="cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- SHOP HERO -->
+<div class="shop-hero">
+  <div class="shop-hero-inner">
+    <div class="shop-breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>/</span>
+      <span style="color:rgba(240,232,220,.55)">All Products</span>
+    </div>
+    <div class="s-header" style="margin-bottom:0" data-reveal="up">
+      <p class="eyebrow">The Collection</p>
+      <h1 style="font-family:var(--font-serif);font-size:clamp(36px,5vw,72px);font-weight:500;color:var(--parchment)">All <em style="font-style:italic;color:var(--gold)">Products</em></h1>
+    </div>
+    <p style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.38);margin-top:16px" data-reveal="up" data-delay="1">68 formulas crafted with rare botanicals and modern science.</p>
+  </div>
+</div>
+
+<!-- SHOP LAYOUT -->
+<div class="shop-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="shop-sidebar" aria-label="Product filters">
+
+    <!-- Category -->
+    <div class="filter-section">
+      <div class="filter-title">Category <span class="filter-toggle open">▾</span></div>
+      <div class="filter-opts">
+        <label class="filter-opt"><input type="checkbox" checked><div class="filter-check"></div><span class="filter-opt-name">All Products</span><span class="filter-opt-count">68</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Skincare</span><span class="filter-opt-count">24</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Makeup</span><span class="filter-opt-count">18</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Fragrance</span><span class="filter-opt-count">8</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Body</span><span class="filter-opt-count">12</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Gift Sets</span><span class="filter-opt-count">6</span></label>
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="filter-section">
+      <div class="filter-title">Price Range <span class="filter-toggle open">▾</span></div>
+      <div class="price-range">
+        <div class="range-inputs">
+          <input type="number" class="range-in" placeholder="$0" min="0" max="500" value="0">
+          <span class="range-sep">—</span>
+          <input type="number" class="range-in" placeholder="$500" min="0" max="500" value="500">
+        </div>
+        <input type="range" min="0" max="500" value="500">
+      </div>
+    </div>
+
+    <!-- Shade / Colour -->
+    <div class="filter-section">
+      <div class="filter-title">Shade <span class="filter-toggle open">▾</span></div>
+      <div class="color-swatches-filter">
+        <div class="csf-swatch active" style="background:#c87860" title="Rose"></div>
+        <div class="csf-swatch" style="background:#904040" title="Deep Rose"></div>
+        <div class="csf-swatch" style="background:#d4a890" title="Blush"></div>
+        <div class="csf-swatch" style="background:#c4a060" title="Gold"></div>
+        <div class="csf-swatch" style="background:#3a2828" title="Berry"></div>
+        <div class="csf-swatch" style="background:#8a6030" title="Bronze"></div>
+        <div class="csf-swatch" style="background:#e8e0d8" title="Nude"></div>
+        <div class="csf-swatch" style="background:#0a0806" title="Black"></div>
+      </div>
+    </div>
+
+    <!-- Skin type -->
+    <div class="filter-section">
+      <div class="filter-title">Skin Type <span class="filter-toggle open">▾</span></div>
+      <div class="filter-opts">
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">All Skin Types</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Dry</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Oily</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Combination</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Sensitive</span></label>
+      </div>
+    </div>
+
+    <!-- Concern -->
+    <div class="filter-section">
+      <div class="filter-title">Skin Concern <span class="filter-toggle open">▾</span></div>
+      <div class="filter-opts">
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Anti-Ageing</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Brightening</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Hydration</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Pores</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Acne</span></label>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="filter-section">
+      <div class="filter-title">Values <span class="filter-toggle open">▾</span></div>
+      <div class="filter-opts">
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Vegan</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Fragrance-Free</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">SPF Included</span></label>
+        <label class="filter-opt"><input type="checkbox"><div class="filter-check"></div><span class="filter-opt-name">Refillable</span></label>
+      </div>
+    </div>
+
+    <button class="filter-clear">Clear All Filters</button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="shop-main">
+    <!-- Toolbar -->
+    <div class="shop-toolbar">
+      <span class="shop-count">Showing <strong>68</strong> products</span>
+      <div class="shop-controls">
+        <select class="shop-sort" aria-label="Sort products">
+          <option>Sort: Featured</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest First</option>
+          <option>Best Selling</option>
+          <option>Highest Rated</option>
+        </select>
+        <div class="shop-view-btns">
+          <button class="view-btn active" data-view="3" title="3 columns">⊞</button>
+          <button class="view-btn" data-view="2" title="2 columns">▣</button>
+          <button class="view-btn" data-view="4" title="4 columns">⊟</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active filters -->
+    <div class="active-filters">
+      <div class="af-tag">Rose Shade <button>✕</button></div>
+      <div class="af-tag">All Skin Types <button>✕</button></div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="shop-grid" id="shop-grid">
+
+      <!-- Product cards (repeated pattern) -->
+      <article class="shop-pc" data-reveal="up">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="pc-badge badge-new">Bestseller</div>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-1"></div>
+          <div class="shop-pc-icon">
+            <div style="display:flex;flex-direction:column;align-items:center">
+              <div style="width:44px;height:26px;background:linear-gradient(145deg,#d4a870,#7a5020);border-radius:4px 4px 0 0"></div>
+              <div style="width:32px;height:12px;background:linear-gradient(160deg,#b49050,#5a3a18)"></div>
+              <div class="psi-serum-tall" style="height:160px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Skincare</span>
+          <h3 class="shop-pc-name">Sérum d'Or Précieux</h3>
+          <p class="shop-pc-desc">24k gold peptides & bio-retinol overnight transformation.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$185</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="serum-or" data-name="Sérum d'Or Précieux" data-price="185" data-icon="✦" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="1">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-4"></div>
+          <div class="shop-pc-icon"><div class="psi-palette-lg" style="width:130px;height:85px">
+            <div class="pw pw1"></div><div class="pw pw2"></div><div class="pw pw3"></div><div class="pw pw4"></div>
+            <div class="pw pw5"></div><div class="pw pw6"></div><div class="pw pw7"></div><div class="pw pw8"></div>
+          </div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Makeup</span>
+          <h3 class="shop-pc-name">Palette Royale</h3>
+          <p class="shop-pc-desc">Twelve curated shades from dusk to dawn.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$145</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="palette" data-name="Palette Royale" data-price="145" data-icon="🎨" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="2">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="pc-badge badge-new">New</div>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-2"></div>
+          <div class="shop-pc-icon"><div class="psi-fragrance-rnd" style="height:120px;width:70px"></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Fragrance</span>
+          <h3 class="shop-pc-name">Eau de Lumière</h3>
+          <p class="shop-pc-desc">Neroli, white musk & aged amber.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$220</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="fragrance-lumiere" data-name="Eau de Lumière" data-price="220" data-icon="🌸" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-3"></div>
+          <div class="shop-pc-icon"><div class="psi-compact-wide" style="width:120px;height:50px"></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Makeup</span>
+          <h3 class="shop-pc-name">Velvet Foundation</h3>
+          <p class="shop-pc-desc">Weightless, buildable coverage. SPF 35.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$95</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="foundation" data-name="Velvet Foundation" data-price="95" data-icon="💄" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="1">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-5"></div>
+          <div class="shop-pc-icon"><div class="psi-mascara-tall" style="height:160px"></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Eye</span>
+          <h3 class="shop-pc-name">Noir Extrême Mascara</h3>
+          <p class="shop-pc-desc">Carbon-black lengthening tubing formula.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$65</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="mascara" data-name="Noir Extrême" data-price="65" data-icon="👁" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="2">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-6"></div>
+          <div class="shop-pc-icon"><div class="psi-cream-jar" style="width:90px;height:70px"></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Body</span>
+          <h3 class="shop-pc-name">Crème Botanique</h3>
+          <p class="shop-pc-desc">Blue agave & Rose de Mai body elixir.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$120</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="cream" data-name="Crème Botanique" data-price="120" data-icon="🌿" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="pc-badge badge-sale">Sale</div>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg pcbg-7"></div>
+          <div class="shop-pc-icon"><div class="psi-eye-liner-trio"><div class="psi-e psi-e1"></div><div class="psi-e psi-e2"></div><div class="psi-e psi-e3"></div></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Eye</span>
+          <h3 class="shop-pc-name">Liner Trilogy</h3>
+          <p class="shop-pc-desc">Three precision liners for every mood.</p>
+          <div class="shop-pc-foot">
+            <div><span class="shop-pc-price">$78</span> <span style="font-size:10px;color:rgba(240,232,220,.25);text-decoration:line-through">$95</span></div>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="liner" data-name="Liner Trilogy" data-price="78" data-icon="✏️" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="1">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg" style="background:linear-gradient(150deg,#0e1614,#1a2c22)"></div>
+          <div class="shop-pc-icon">
+            <div style="display:flex;flex-direction:column;align-items:center">
+              <div style="width:44px;height:26px;background:linear-gradient(145deg,#8a9080,#404e3c);border-radius:4px 4px 0 0"></div>
+              <div class="psi-serum-tall" style="height:160px;background:linear-gradient(165deg,rgba(255,255,255,.06),rgba(122,144,112,.3),rgba(40,70,40,.4));border-color:rgba(122,144,112,.3)"></div>
+            </div>
+          </div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Skincare</span>
+          <h3 class="shop-pc-name">Algae Renewal Serum</h3>
+          <p class="shop-pc-desc">Deep sea kelp & bakuchiol — nature's retinol.</p>
+          <div class="shop-pc-foot">
+            <span class="shop-pc-price">$155</span>
+            <button class="btn btn-ghost pc-add add-to-cart" data-id="algae" data-name="Algae Renewal Serum" data-price="155" data-icon="🌊" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="shop-pc" data-reveal="up" data-delay="2">
+        <button class="shop-pc-wl" aria-label="Wishlist">♡</button>
+        <div class="pc-badge badge-new">Best Value</div>
+        <div class="shop-pc-vis">
+          <div class="shop-pc-bg" style="background:linear-gradient(150deg,#1a0808,#3a0e10)"></div>
+          <div class="shop-pc-icon"><div class="psi-trio"><div class="psi-trio-t pt1" style="height:130px"></div><div class="psi-trio-t pt2" style="height:160px"></div><div class="psi-trio-t pt3" style="height:110px"></div></div></div>
+        </div>
+        <div class="shop-pc-info">
+          <span class="shop-pc-cat">Set</span>
+          <h3 class="shop-pc-name">La Routine Complète</h3>
+          <p class="shop-pc-desc">Complete morning & evening ritual set.</p>
+          <div class="shop-pc-foot">
+            <div><span class="shop-pc-price">$340</span> <span style="font-size:10px;color:rgba(240,232,220,.25);text-decoration:line-through">$460</span></div>
+            <button class="btn btn-solid pc-add add-to-cart" data-id="routine-set" data-name="La Routine Complète" data-price="340" data-icon="✦" style="padding:8px 16px;font-size:8px"><span>Add</span></button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="shop-pagination">
+      <button class="pg-btn arrow">←</button>
+      <button class="pg-btn active">1</button>
+      <button class="pg-btn">2</button>
+      <button class="pg-btn">3</button>
+      <span style="color:rgba(240,232,220,.2);padding:0 8px">…</span>
+      <button class="pg-btn">8</button>
+      <button class="pg-btn arrow">→</button>
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER (condensed) -->
+<footer role="contentinfo" style="padding:40px var(--pad-x)">
+  <div class="footer-bottom">
+    <a href="../index.html" class="footer-brand" style="font-size:16px">MAISON AURÉA</a>
+    <span class="footer-copy">© 2025 Maison Auréa. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+<button id="back-top">↑</button>
+
+<script src="../js/main.js"></script>
+<script>
+  // View toggle
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const grid = document.getElementById('shop-grid');
+      grid.className = 'shop-grid view-' + btn.dataset.view;
+    });
+  });
+  // Filter toggle collapse
+  document.querySelectorAll('.filter-title').forEach(title => {
+    title.addEventListener('click', () => {
+      const toggle = title.querySelector('.filter-toggle');
+      const opts = title.nextElementSibling;
+      const isOpen = toggle.classList.contains('open');
+      toggle.classList.toggle('open', !isOpen);
+      opts.style.display = isOpen ? 'none' : '';
+    });
+  });
+  // Wishlist on shop page
+  document.querySelectorAll('.shop-pc-wl').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const active = btn.textContent === '♥';
+      btn.textContent = active ? '♡' : '♥';
+      btn.style.color = active ? '' : 'var(--rose)';
+    });
+  });
+  // Announce bar
+  document.getElementById('announce-close')?.addEventListener('click', () => {
+    document.getElementById('announce-bar')?.remove();
+    document.getElementById('main-nav').style.top = '0';
+  });
+  const bar = document.getElementById('announce-bar');
+  const nav = document.getElementById('main-nav');
+  if (bar && nav) nav.style.top = bar.offsetHeight + 'px';
+</script>
+</body>
+</html>

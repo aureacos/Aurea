@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Maison Auréa</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/sections.css">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="loader-logo">AURÉA</div>
+  <div class="loader-sub">Contact Us</div>
+  <div class="loader-progress"><div class="loader-bar"></div></div>
+</div>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-header">
+    <div><div class="cart-title">Your Bag</div><div class="cart-count-label" id="cart-count-label">0 items</div></div>
+    <button class="cart-close" id="cart-close">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-empty" id="cart-empty"><div class="cart-empty-icon">✦</div><p class="cart-empty-text">Your bag is empty.</p></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal</span><span class="cart-subtotal-price" id="cart-subtotal-price">$0</span></div>
+    <button class="cart-checkout">Proceed to Checkout</button>
+    <a href="checkout.html" class="cart-continue">Checkout</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button class="search-close" id="search-close">Close</button>
+  <div class="search-form"><input type="text" class="search-input" placeholder="Search products…"><button class="search-submit">⌕</button></div>
+  <p class="search-hint">Press ESC to close</p>
+</div>
+<div id="mobile-menu">
+  <nav class="mobile-nav-links">
+    <a href="../index.html" class="mobile-nav-link">Home <span>→</span></a>
+    <a href="shop.html"    class="mobile-nav-link">Shop <span>→</span></a>
+    <a href="login.html"   class="mobile-nav-link">Account <span>→</span></a>
+  </nav>
+</div>
+
+<!-- NAV -->
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150 · Free sample with every order</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">MAISON AURÉA<span class="nav-logo-sub">Haute Cosmétique · Paris</span></a>
+    <nav class="nav-links">
+      <div class="nav-item"><a href="shop.html?cat=skincare" class="nav-link">Skincare</a></div>
+      <div class="nav-item"><a href="shop.html?cat=makeup"   class="nav-link">Makeup</a></div>
+      <div class="nav-item"><a href="about.html"             class="nav-link">Maison</a></div>
+      <div class="nav-item"><a href="contact.html"           class="nav-link active">Contact</a></div>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open">⌕</button>
+      <a href="wishlist.html" class="nav-icon-btn">♡</a>
+      <a href="login.html"    class="nav-icon-btn">👤</a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge" id="cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg" aria-hidden="true">
+    <div class="page-hero-orb pho1"></div>
+    <div class="page-hero-orb pho2"></div>
+  </div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow" data-reveal="up">We're Here For You</div>
+    <h1 class="page-hero-title" data-reveal="up">
+      Get in <em>Touch</em>
+    </h1>
+    <p class="page-hero-desc" data-reveal="up" data-delay="1">
+      Every message is read by a human being in our Paris atelier. We respond within 24 hours — often sooner.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT LAYOUT -->
+<div class="contact-layout">
+
+  <!-- INFO PANEL -->
+  <div class="contact-info-panel">
+    <div class="s-header" data-reveal="up">
+      <p class="eyebrow">Reach Us</p>
+      <h2>How to find <em>us</em></h2>
+    </div>
+
+    <div class="contact-channels" data-reveal="up" data-delay="1">
+      <div class="contact-channel">
+        <span class="cc-icon">✉</span>
+        <div>
+          <span class="cc-title">Email</span>
+          <span class="cc-value">bonjour@maisonaurea.com</span>
+          <span class="cc-note">Responses within 24 hours</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">💬</span>
+        <div>
+          <span class="cc-title">Live Chat</span>
+          <span class="cc-value">Available on our website</span>
+          <span class="cc-note">Mon–Fri, 9am–6pm CET</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">📞</span>
+        <div>
+          <span class="cc-title">Telephone</span>
+          <span class="cc-value">+33 1 42 00 00 00</span>
+          <span class="cc-note">Mon–Fri, 9am–6pm CET</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">📍</span>
+        <div>
+          <span class="cc-title">Atelier & Boutique</span>
+          <span class="cc-value">12 Rue de la Paix, Paris 75002</span>
+          <span class="cc-note">Open Tue–Sat, 10am–7pm</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">📸</span>
+        <div>
+          <span class="cc-title">Instagram</span>
+          <span class="cc-value">@maisonaurea</span>
+          <span class="cc-note">DMs answered daily</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map placeholder -->
+    <div class="contact-map" data-reveal="up">
+      <div class="contact-map-pin"></div>
+      <div class="contact-map-pin"></div>
+      <div class="contact-map-pin"></div>
+      <div class="contact-map-label">
+        <span>12 Rue de la Paix, Paris</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="contact-form-panel">
+    <div class="s-header" data-reveal="up">
+      <p class="eyebrow">Send a Message</p>
+      <h2>We'd love to <em>hear</em> from you</h2>
+    </div>
+
+    <form class="contact-form" id="contact-form" data-reveal="up" data-delay="1">
+      <div class="cf-row">
+        <div>
+          <label class="cf-label" for="cf-fname">First Name *</label>
+          <input type="text" class="cf-input" id="cf-fname" placeholder="Sophie" required>
+        </div>
+        <div>
+          <label class="cf-label" for="cf-lname">Last Name *</label>
+          <input type="text" class="cf-input" id="cf-lname" placeholder="Laurent" required>
+        </div>
+      </div>
+      <div>
+        <label class="cf-label" for="cf-email">Email Address *</label>
+        <input type="email" class="cf-input" id="cf-email" placeholder="your@email.com" required>
+      </div>
+      <div>
+        <label class="cf-label" for="cf-subject">Subject *</label>
+        <select class="cf-select" id="cf-subject" required>
+          <option value="">Select a topic</option>
+          <option>Order & Shipping</option>
+          <option>Returns & Refunds</option>
+          <option>Product Advice</option>
+          <option>Wholesale & Press</option>
+          <option>Sustainability Enquiry</option>
+          <option>Career Opportunities</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div>
+        <label class="cf-label" for="cf-order">Order Number (if applicable)</label>
+        <input type="text" class="cf-input" id="cf-order" placeholder="AUR-XXXXXX">
+      </div>
+      <div>
+        <label class="cf-label" for="cf-message">Your Message *</label>
+        <textarea class="cf-textarea" id="cf-message" placeholder="How can we help you?" required></textarea>
+      </div>
+
+      <!-- Attach file -->
+      <div>
+        <label class="cf-label">Attachment (optional)</label>
+        <div id="cf-dropzone" style="border:1px dashed rgba(196,160,96,.22);padding:24px;text-align:center;cursor:none;transition:all .3s;background:rgba(240,232,220,.02)">
+          <span style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:rgba(240,232,220,.3)">Drag a file here, or click to browse</span>
+          <input type="file" id="cf-file" style="display:none" accept="image/*,.pdf">
+        </div>
+        <p id="cf-file-name" style="font-size:10px;color:var(--gold);margin-top:6px;display:none"></p>
+      </div>
+
+      <!-- Privacy -->
+      <label style="display:flex;align-items:flex-start;gap:12px;cursor:none">
+        <input type="checkbox" id="cf-privacy" required style="display:none">
+        <div class="billing-check-box" style="margin-top:2px;flex-shrink:0"></div>
+        <span style="font-size:11px;font-weight:200;color:rgba(240,232,220,.35);line-height:1.6">
+          I agree to the <a href="#" style="color:rgba(196,160,96,.55)">Privacy Policy</a> and consent to Maison Auréa processing my data to respond to my enquiry. *
+        </span>
+      </label>
+
+      <button type="submit" class="cf-submit"><span>Send Message</span></button>
+
+      <div id="cf-success" style="display:none;padding:20px;border:1px solid var(--sage);background:rgba(122,144,112,.06);text-align:center">
+        <p style="font-family:var(--font-serif);font-style:italic;font-size:16px;color:var(--parchment)">
+          Merci! Your message has been sent. We'll be in touch within 24 hours.
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="s-header" data-reveal="up">
+    <p class="eyebrow">Quick Answers</p>
+    <h2>Frequently asked <em>questions</em></h2>
+  </div>
+  <div class="faq-list stagger-children" id="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question">
+        What is your shipping policy?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          We offer complimentary standard shipping on all orders over $150. Express (2–3 days, $24) and overnight ($38) options are also available. We ship to over 40 countries. All orders include our signature gift wrapping and a handwritten note from our team.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How do I return or exchange a product?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          We offer 30-day hassle-free returns on all products. Simply email us at bonjour@maisonaurea.com with your order number and we'll arrange a prepaid return label. Refunds are processed within 5–7 business days of receiving the return.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Are your products suitable for sensitive skin?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes — all Auréa formulas are dermatologist-tested and allergy-tested. We avoid the 26 most common allergens. Our Sérum d'Or and Algae Renewal Serum are specifically formulated for sensitive skin and are fragrance-free. We always recommend a patch test before full application.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        How does your refill programme work?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Return any empty Auréa bottle to us (postage is on us) and we'll refill it with your chosen product at 40% off the retail price. It's our way of making sustainability effortless and rewarding. You can initiate a refill through your account dashboard or by emailing us.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        Do you offer wholesale or press samples?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes — we work with select retailers, spas, and press. Please use the contact form above selecting "Wholesale & Press" and include details about your business or publication. Our trade team typically responds within 48 hours.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">
+        What loyalty rewards do you offer?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Every purchase earns Auréa Points — 1 point per $1 spent. Points can be redeemed for discounts, exclusive products, and early collection access. Members also receive birthday gifts, free shipping upgrades, and invitations to our private atelier events in Paris.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER condensed -->
+<footer style="padding:52px var(--pad-x) 36px;background:#040302;border-top:1px solid var(--line)">
+  <div class="footer-bottom">
+    <a href="../index.html" class="footer-brand" style="font-size:16px">MAISON AURÉA</a>
+    <span class="footer-copy">© 2025 Maison Auréa. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<button id="back-top">↑</button>
+
+<script src="../js/main.js"></script>
+<script>
+'use strict';
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const icon   = btn.querySelector('.faq-icon');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      const a = i.querySelector('.faq-answer');
+      const ic = i.querySelector('.faq-icon');
+      if (a)  a.style.maxHeight  = '0';
+      if (a)  a.style.padding    = '0 24px';
+      if (ic) ic.textContent = '+';
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 50 + 'px';
+      answer.style.padding   = '0 24px 22px';
+      icon.textContent       = '×';
+    }
+  });
+});
+
+// Dropzone
+const dropzone = document.getElementById('cf-dropzone');
+const fileInput = document.getElementById('cf-file');
+const fileName  = document.getElementById('cf-file-name');
+dropzone?.addEventListener('click', () => fileInput?.click());
+dropzone?.addEventListener('dragover', e => { e.preventDefault(); dropzone.style.borderColor = 'rgba(196,160,96,.5)'; dropzone.style.background = 'rgba(196,160,96,.04)'; });
+dropzone?.addEventListener('dragleave', () => { dropzone.style.borderColor = ''; dropzone.style.background = ''; });
+dropzone?.addEventListener('drop', e => {
+  e.preventDefault(); dropzone.style.borderColor = ''; dropzone.style.background = '';
+  const file = e.dataTransfer?.files[0];
+  if (file && fileName) { fileName.textContent = '✦ ' + file.name; fileName.style.display = 'block'; }
+});
+fileInput?.addEventListener('change', () => {
+  const file = fileInput.files?.[0];
+  if (file && fileName) { fileName.textContent = '✦ ' + file.name; fileName.style.display = 'block'; }
+});
+
+// Privacy checkbox
+document.getElementById('cf-privacy')?.addEventListener('change', function() {
+  const box = this.nextElementSibling;
+  box.style.background  = this.checked ? 'var(--gold)' : '';
+  box.style.borderColor = this.checked ? 'var(--gold)' : '';
+  box.textContent       = this.checked ? '✓' : '';
+});
+
+// Form submit
+document.getElementById('contact-form')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const btn     = e.target.querySelector('.cf-submit');
+  const success = document.getElementById('cf-success');
+  btn.textContent = 'Sending…'; btn.style.background = 'var(--dust)';
+  setTimeout(() => {
+    e.target.reset();
+    btn.textContent = 'Message Sent ✦'; btn.style.background = 'var(--sage)';
+    if (success) success.style.display = 'block';
+    if (typeof showToast !== 'undefined') showToast('Message sent! We\'ll reply within 24 hours.', '✦');
+  }, 1600);
+});
+
+// Announce + nav
+document.getElementById('announce-close')?.addEventListener('click', () => {
+  document.getElementById('announce-bar')?.remove();
+  document.getElementById('main-nav').style.top = '0';
+});
+const bar = document.getElementById('announce-bar');
+const nav = document.getElementById('main-nav');
+if (bar && nav) nav.style.top = bar.offsetHeight + 'px';
+const cartFooter  = document.getElementById('cart-footer');
+const cartEmpty   = document.getElementById('cart-empty');
+const cartItemsEl = document.getElementById('cart-items');
+if (cartItemsEl) {
+  new MutationObserver(() => {
+    const has = document.querySelectorAll('.cart-item').length > 0;
+    if (cartFooter) cartFooter.style.display = has ? 'block' : 'none';
+    if (cartEmpty)  cartEmpty.style.display  = has ? 'none'  : 'flex';
+  }).observe(cartItemsEl, { childList: true });
+}
+</script>
+</body>
+</html>
