@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Luxury cosmetics store. Shop skincare, makeup, fragrance and body products.">
+<title>Home | Your Brand</title>
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- LOADER -->
+<div id="page-loader" aria-hidden="true">
+  <div class="ld-logo" data-brand>YOUR BRAND</div>
+  <div class="ld-sub" data-brand-tagline>Haute Cosmétique</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- TOAST -->
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Back to top">↑</button>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" aria-hidden="true"></div>
+
+<!-- ═══ CART DRAWER ═══ -->
+<aside id="cart-drawer" aria-label="Shopping bag" role="dialog">
+  <div class="cart-head">
+    <div>
+      <div class="cart-head-title">Your Bag</div>
+      <div class="cart-head-count" id="cart-count-lbl">0 items</div>
+    </div>
+    <button id="cart-close-btn" aria-label="Close bag">✕</button>
+  </div>
+  <div id="cart-items-list"></div>
+  <div id="cart-empty-state">
+    <div class="cart-empty-icon">✦</div>
+    <p class="cart-empty-txt">Your bag is empty.<br>Discover something beautiful.</p>
+    <a href="pages/shop.html" class="btn btn-outline" style="margin-top:8px"><span>Explore Collection</span></a>
+  </div>
+  <div id="cart-footer" style="display:none">
+    <div class="cart-subtotal-row">
+      <span class="cart-sub-lbl">Subtotal</span>
+      <span id="cart-total-price">$0.00</span>
+    </div>
+    <p class="cart-ship-note">Free shipping on orders over $150 · Gift wrapping available</p>
+    <button id="cart-checkout-btn">Proceed to Checkout</button>
+    <a href="pages/shop.html" class="cart-continue-link">Continue Shopping</a>
+  </div>
+</aside>
+
+<!-- ═══ SEARCH OVERLAY ═══ -->
+<div id="search-overlay" role="dialog" aria-label="Search">
+  <button id="search-close-btn">✕ Close</button>
+  <div class="search-wrap">
+    <input type="text" class="search-input" placeholder="Search products, ingredients…" aria-label="Search" autocomplete="off">
+  </div>
+  <div id="search-results"></div>
+  <div class="search-sug-tags" id="search-suggestions"></div>
+</div>
+
+<!-- ═══ MOBILE MENU ═══ -->
+<div id="mobile-menu" aria-hidden="true">
+  <nav>
+    <a href="pages/shop.html?cat=all"       class="mob-link">Shop All <span>→</span></a>
+    <a href="pages/shop.html?cat=skincare"  class="mob-link">Skincare <span>→</span></a>
+    <a href="pages/shop.html?cat=makeup"    class="mob-link">Makeup <span>→</span></a>
+    <a href="pages/shop.html?cat=fragrance" class="mob-link">Fragrance <span>→</span></a>
+    <a href="pages/shop.html?cat=body"      class="mob-link">Body <span>→</span></a>
+    <a href="pages/about.html"              class="mob-link">Our Story <span>→</span></a>
+    <a href="pages/contact.html"            class="mob-link">Contact <span>→</span></a>
+    <a href="pages/login.html"              class="mob-link">Account <span>→</span></a>
+  </nav>
+  <div class="mob-footer">
+    <a href="#" class="mob-soc">IG</a>
+    <a href="#" class="mob-soc">TK</a>
+    <a href="#" class="mob-soc">PI</a>
+  </div>
+</div>
+
+<!-- ═══ ANNOUNCE BAR ═══ -->
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150 &nbsp;·&nbsp; Free sample with every order</p>
+  <a href="pages/shop.html">Shop Now</a>
+  <button class="announce-close" id="announce-close" aria-label="Close">✕</button>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<header id="main-nav" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Home">
+      <span data-brand>YOUR BRAND</span>
+      <sub data-brand-tagline>Haute Cosmétique</sub>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="pages/shop.html?cat=skincare"  class="nav-link">Skincare</a>
+      <a href="pages/shop.html?cat=makeup"    class="nav-link">Makeup</a>
+      <a href="pages/shop.html?cat=fragrance" class="nav-link">Fragrance</a>
+      <a href="pages/shop.html?cat=body"      class="nav-link">Body</a>
+      <a href="pages/about.html"              class="nav-link">Maison</a>
+      <a href="pages/shop.html?cat=sale"      class="nav-link" style="color:var(--rose)">Sale</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-location" id="nav-location-btn" title="Your location" style="display:none">
+        📍 <span class="nav-location-text location-display">Detecting…</span>
+      </button>
+      <button class="nav-icon-btn" id="search-open-btn" aria-label="Search">⌕</button>
+      <a href="pages/wishlist.html" class="nav-icon-btn" aria-label="Wishlist" style="position:relative">
+        ♡ <span class="badge wishlist-badge">0</span>
+      </a>
+      <a href="pages/login.html" class="nav-icon-btn" aria-label="Account">
+        <span class="auth-avatar">👤</span>
+      </a>
+      <button class="nav-icon-btn" id="cart-btn" aria-label="Shopping bag" style="position:relative">
+        🛍 <span class="badge cart-badge">0</span>
+      </button>
+      <a href="pages/shop.html" class="nav-cta-btn magnetic">Shop Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero" aria-label="Welcome">
+  <div class="hero-left">
+    <span class="hero-sup">New Collection — <span data-brand-tagline>Haute Cosmétique</span></span>
+    <h1 class="hero-h1">
+      <span class="l1">The Art</span>
+      <span class="l2">of Becoming</span>
+      <span class="l3">Beautiful</span>
+    </h1>
+    <p class="hero-desc">
+      Premium formulas crafted with rare ingredients and modern science — for skin that glows with the quiet confidence of knowing itself.
+    </p>
+    <div class="hero-cta">
+      <a href="pages/shop.html" class="btn btn-gold magnetic"><span>Explore Collection</span></a>
+      <a href="pages/about.html" class="btn btn-text">Our Philosophy</a>
+    </div>
+    <div class="hero-trust">
+      <div class="ht-avs">
+        <div class="ht-av av1">S</div>
+        <div class="ht-av av2">M</div>
+        <div class="ht-av av3">A</div>
+        <div class="ht-av av4">J</div>
+      </div>
+      <div>
+        <div class="ht-stars">★★★★★</div>
+        <p class="ht-text"><strong>Loved by customers</strong> worldwide</p>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-track"><div class="hero-scroll-thumb"></div></div>
+      <span class="hero-scroll-lbl">Scroll</span>
+    </div>
+  </div>
+  <div class="hero-right" aria-hidden="true">
+    <div class="hero-bg"></div>
+    <div class="hero-orb orb-a"></div>
+    <div class="hero-orb orb-b"></div>
+    <div class="hero-orb orb-c"></div>
+    <div class="hero-rings">
+      <div class="hero-ring ring-1"></div>
+      <div class="hero-ring ring-2"></div>
+      <div class="hero-ring ring-3"></div>
+    </div>
+    <div class="hero-product-wrap">
+      <div class="hero-product-display">
+        <!-- Replace the placeholder below with a real product image -->
+        <div class="hero-product-img">
+          <div class="hpi-shine"></div>
+          <div class="no-product-placeholder">
+            <div class="npp-icon">✦</div>
+            <p class="npp-text">Add your hero product photo in products.js</p>
+          </div>
+        </div>
+        <p class="hero-product-label" id="hero-product-label">Your Featured Product</p>
+      </div>
+    </div>
+    <div class="hero-stat-strip">
+      <div class="hss"><span class="hss-n count-up" data-target="96" data-suffix="%">96%</span><span class="hss-l">Natural Origin</span></div>
+      <div class="hss"><span class="hss-n" id="hero-products-count">—</span><span class="hss-l">Products</span></div>
+      <div class="hss"><span class="hss-n count-up" data-target="40" data-suffix="+">40+</span><span class="hss-l">Global Awards</span></div>
+      <div class="hss"><span class="hss-n count-up" data-target="100" data-suffix="%">100%</span><span class="hss-l">Cruelty Free</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Cruelty Free</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Ethically Sourced</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Dermatologist Tested</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Vegan Certified</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sustainable Packaging</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Free From Parabens</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Cruelty Free</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Ethically Sourced</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Dermatologist Tested</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Vegan Certified</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Sustainable Packaging</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Free From Parabens</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-row mrow-fwd">
+    <span class="mq-word mq-outline">RADIANCE</span><span class="mq-word mq-fill">BEAUTÉ</span>
+    <span class="mq-word mq-outline">RITUAL</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">ÉCLAT</span><span class="mq-word mq-fill">GLOW</span>
+    <span class="mq-word mq-outline">RADIANCE</span><span class="mq-word mq-fill">BEAUTÉ</span>
+    <span class="mq-word mq-outline">RITUAL</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">ÉCLAT</span><span class="mq-word mq-fill">GLOW</span>
+  </div>
+  <div class="marquee-row mrow-rev">
+    <span class="mq-word mq-fill">VELVET</span><span class="mq-word mq-outline">MAISON</span>
+    <span class="mq-word mq-fill">ESSENCE</span><span class="mq-word mq-outline">PARIS</span>
+    <span class="mq-word mq-fill">LUMIÈRE</span><span class="mq-word mq-outline">PURE</span>
+    <span class="mq-word mq-fill">VELVET</span><span class="mq-word mq-outline">MAISON</span>
+    <span class="mq-word mq-fill">ESSENCE</span><span class="mq-word mq-outline">PARIS</span>
+    <span class="mq-word mq-fill">LUMIÈRE</span><span class="mq-word mq-outline">PURE</span>
+  </div>
+</div>
+
+<!-- PRESS -->
+<div class="press-bar" aria-label="As seen in">
+  <span class="press-lbl">As seen in</span>
+  <div class="press-logos">
+    <span class="press-logo">VOGUE</span>
+    <span class="press-logo">ALLURE</span>
+    <span class="press-logo">ELLE</span>
+    <span class="press-logo">HARPER'S BAZAAR</span>
+    <span class="press-logo">WWD</span>
+    <span class="press-logo">INSTYLE</span>
+    <span class="press-logo">GLAMOUR</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="cat-section" id="categories" aria-label="Shop by category">
+  <div class="section-head" data-reveal="up">
+    <div class="s-eyebrow">Shop by Category</div>
+    <h2 class="s-h2">Find your <em>ritual</em></h2>
+  </div>
+  <div class="cat-grid stagger" id="cat-grid">
+    <!-- Populated by JS from PRODUCTS_DB categories -->
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section-pad" id="featured" aria-label="Featured products" style="background:var(--ink)">
+  <div class="section-head center" data-reveal="up">
+    <div class="s-eyebrow center">The Collection</div>
+    <h2 class="s-h2">Our <em>signature</em> formulas</h2>
+    <p class="s-desc">Every product in our collection is a labour of love — crafted from the finest ingredients, tested for results, and designed to become part of your daily ritual.</p>
+  </div>
+  <div class="products-grid cols-3" id="featured-grid">
+    <!-- Populated by JS -->
+  </div>
+  <div style="text-align:center;margin-top:48px" data-reveal="up">
+    <a href="pages/shop.html" class="btn btn-outline magnetic"><span>View All Products</span></a>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section-pad" id="values" style="background:var(--char)" aria-label="Our values">
+  <div class="section-head" data-reveal="up">
+    <div class="s-eyebrow">Our Commitments</div>
+    <h2 class="s-h2">What we <em>stand</em> for</h2>
+  </div>
+  <div class="val-grid">
+    <div class="val-card" data-reveal="up">
+      <div class="val-icon">🌿</div>
+      <span class="val-title">Pure Ingredients</span>
+      <p class="val-desc">Naturally-derived, ethically harvested from sustainable farms. No parabens, no sulfates, no compromise — ever.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="1">
+      <div class="val-icon">🐇</div>
+      <span class="val-title">Cruelty Free Forever</span>
+      <p class="val-desc">Every product is tested only by consenting human volunteers. This is a founding principle, not a marketing position.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="2">
+      <div class="val-icon">♻️</div>
+      <span class="val-title">Sustainable Packaging</span>
+      <p class="val-desc">Recycled materials, refillable options, and minimal waste. Beauty should leave the world better than it found it.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="3">
+      <div class="val-icon">✦</div>
+      <span class="val-title">Radical Transparency</span>
+      <p class="val-desc">Full ingredient disclosure, always. Every product lists exactly what's in it and where it comes from. We hide nothing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RITUAL STEPS -->
+<section class="section-pad" id="ritual" style="background:linear-gradient(160deg,#0e0a07,#171008,#0a0806)" aria-label="Our ritual">
+  <div class="section-head center" data-reveal="up">
+    <div class="s-eyebrow center">The Philosophy</div>
+    <div class="divider-v" style="margin:24px auto 24px"></div>
+    <blockquote style="font-family:var(--f-serif);font-style:italic;font-size:clamp(18px,2.5vw,32px);color:rgba(240,232,220,.68);line-height:1.55;max-width:760px;margin:0 auto 40px" data-reveal="up" data-delay="1">
+      "Beauty is not a destination — it is a daily devotion, a whispered conversation between who you are and who you are becoming."
+    </blockquote>
+  </div>
+  <div class="ritual-steps">
+    <div class="rstep" data-reveal="up">
+      <span class="rs-num">01</span>
+      <div class="rs-line"></div>
+      <span class="rs-title">Cleanse</span>
+      <p class="rs-desc">Begin in stillness. Remove the day with our gentle botanical cleansers, formulated for all skin types.</p>
+    </div>
+    <div class="rstep" data-reveal="up" data-delay="1">
+      <span class="rs-num">02</span>
+      <div class="rs-line"></div>
+      <span class="rs-title">Restore</span>
+      <p class="rs-desc">Layer serums and treatments and let active ingredients perform their quiet overnight transformation.</p>
+    </div>
+    <div class="rstep" data-reveal="up" data-delay="2">
+      <span class="rs-num">03</span>
+      <div class="rs-line"></div>
+      <span class="rs-title">Illuminate</span>
+      <p class="rs-desc">Apply colour with intention. Every stroke is an act of pure, unhurried self-expression.</p>
+    </div>
+    <div class="rstep" data-reveal="up" data-delay="3">
+      <span class="rs-num">04</span>
+      <div class="rs-line"></div>
+      <span class="rs-title">Radiate</span>
+      <p class="rs-desc">Step out wearing your truest self — luminous, centred, and entirely, undeniably your own.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION BANNER -->
+<section class="coll-banner" aria-label="New collection">
+  <div class="cb-left">
+    <div data-reveal="up">
+      <div class="s-eyebrow">New Arrival</div>
+      <h2 class="s-h2" style="font-size:clamp(36px,5vw,68px);margin-bottom:20px">
+        The New<br><em>Collection</em>
+      </h2>
+      <p class="s-desc" style="margin-top:0;margin-bottom:40px">
+        Our most ambitious formulas yet — crafted for maximum radiance and lasting results. Add your collection description here.
+      </p>
+      <a href="pages/shop.html?cat=new" class="btn btn-gold magnetic"><span>Discover Now</span></a>
+    </div>
+  </div>
+  <div class="cb-right">
+    <!-- Add a collection image here -->
+    <div class="cb-r-placeholder">
+      <div style="font-size:40px;margin-bottom:12px;opacity:.2">✦</div>
+      Add a beautiful collection image here
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section-pad" id="testimonials" style="background:var(--ink)" aria-label="Customer stories">
+  <div class="section-head center" data-reveal="up">
+    <div class="s-eyebrow center">Customer Stories</div>
+    <h2 class="s-h2">Real stories, real <em>results</em></h2>
+    <p class="s-desc" style="margin:18px auto 0">
+      These are reviews left by real customers after receiving and using our products. No edits, no filters.
+    </p>
+  </div>
+  <!-- Reviews from real customers will appear here once submitted -->
+  <div id="homepage-reviews" style="margin-top:52px">
+    <div style="text-align:center;padding:60px 0">
+      <div style="font-size:40px;color:var(--gold-20);margin-bottom:16px">✦</div>
+      <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.3);margin-bottom:24px">
+        No reviews yet. Be the first to purchase and share your experience!
+      </p>
+      <a href="pages/shop.html" class="btn btn-outline magnetic"><span>Shop Now</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section-pad nl-section" style="background:var(--char)" aria-label="Newsletter">
+  <div class="nl-inner">
+    <div class="nl-div" data-reveal="up" aria-hidden="true"></div>
+    <div class="section-head center" data-reveal="up">
+      <div class="s-eyebrow center">Stay Connected</div>
+      <h2 class="s-h2">Join Our <em>Circle</em></h2>
+    </div>
+    <p class="nl-desc" data-reveal="up" data-delay="1">
+      Early access to new products, exclusive offers, and beauty tips — delivered once a month. Never spam.
+    </p>
+    <form class="newsletter-form" data-reveal="up" data-delay="2">
+      <input type="email" class="nl-input" placeholder="Your email address" aria-label="Email" required>
+      <button type="submit" class="nl-btn">Subscribe</button>
+    </form>
+    <p class="nl-note" data-reveal="up" data-delay="3">No spam. Unsubscribe anytime. Your privacy is respected.</p>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section style="padding:80px var(--pad) 0;background:var(--ink)" aria-label="Instagram">
+  <div class="section-head" style="margin-bottom:32px" data-reveal="up">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="s-eyebrow">Community</div>
+        <h2 class="s-h2" style="font-size:36px">#YourBrandName</h2>
+      </div>
+      <a href="#" class="btn btn-text" target="_blank" rel="noopener">Follow on Instagram</a>
+    </div>
+  </div>
+  <div class="ig-grid" id="ig-grid">
+    <!-- Add real Instagram images here, or connect the Instagram API -->
+    <div class="ig-cell" style="background:linear-gradient(145deg,#3c1210,#6e2420)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell" style="background:linear-gradient(145deg,#0e1e10,#1c3c1a)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell" style="background:linear-gradient(145deg,#10101e,#1c1c3c)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell" style="background:linear-gradient(145deg,#1e1a08,#3c3010)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell" style="background:linear-gradient(145deg,#1c0e16,#3a1a2e)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+    <div class="ig-cell" style="background:linear-gradient(145deg,#081018,#102032)"><div class="ig-ov"><span class="ig-heart">♡</span></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="ft-top">
+    <div>
+      <span class="ft-brand" data-brand>YOUR BRAND</span>
+      <p class="ft-tagline">Premium cosmetics crafted with rare ingredients and modern science. Beauty that is honest, sustainable, and effective.</p>
+      <div class="ft-socials">
+        <a href="#" class="ft-soc" aria-label="Instagram">IG</a>
+        <a href="#" class="ft-soc" aria-label="TikTok">TK</a>
+        <a href="#" class="ft-soc" aria-label="Pinterest">PI</a>
+        <a href="#" class="ft-soc" aria-label="YouTube">YT</a>
+      </div>
+      <!-- Mini newsletter -->
+      <form class="newsletter-form" style="margin-top:24px;display:flex;max-width:280px">
+        <input type="email" class="nl-input" placeholder="Email address" aria-label="Email" required style="font-size:11px;padding:12px 14px">
+        <button type="submit" class="nl-btn" style="padding:12px 18px;font-size:8px">Join</button>
+      </form>
+    </div>
+    <div>
+      <span class="ft-col-title">Shop</span>
+      <ul class="ft-links">
+        <li><a href="pages/shop.html?cat=skincare">Skincare</a></li>
+        <li><a href="pages/shop.html?cat=makeup">Makeup</a></li>
+        <li><a href="pages/shop.html?cat=fragrance">Fragrance</a></li>
+        <li><a href="pages/shop.html?cat=body">Body</a></li>
+        <li><a href="pages/shop.html?cat=new">New Arrivals</a></li>
+        <li><a href="pages/shop.html?cat=sale">Sale</a></li>
+        <li><a href="pages/shop.html?cat=sets">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="ft-col-title">Maison</span>
+      <ul class="ft-links">
+        <li><a href="pages/about.html">Our Story</a></li>
+        <li><a href="pages/about.html#values">Our Values</a></li>
+        <li><a href="pages/about.html#sustainability">Sustainability</a></li>
+        <li><a href="pages/contact.html">Press</a></li>
+        <li><a href="pages/contact.html">Careers</a></li>
+        <li><a href="pages/contact.html">Stockists</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="ft-col-title">Support</span>
+      <ul class="ft-links">
+        <li><a href="pages/contact.html">Contact Us</a></li>
+        <li><a href="pages/contact.html#faq">Shipping & Returns</a></li>
+        <li><a href="pages/contact.html#faq">FAQ</a></li>
+        <li><a href="pages/login.html">My Account</a></li>
+        <li><a href="pages/wishlist.html">Wishlist</a></li>
+        <li><a href="pages/login.html#loyalty">Loyalty Program</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span class="ft-copy">© <span id="ft-year"></span> <span data-brand>YOUR BRAND</span>. All rights reserved.</span>
+    <div class="ft-pay">
+      <span class="pay-ic">VISA</span>
+      <span class="pay-ic">MC</span>
+      <span class="pay-ic">AMEX</span>
+      <span class="pay-ic">PayPal</span>
+      <span class="pay-ic">Apple Pay</span>
+    </div>
+    <div class="ft-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookies</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/config.js"></script>
+<script src="js/products.js"></script>
+<script src="js/store.js"></script>
+<script src="js/ui.js"></script>
+<script>
+'use strict';
+
+// Footer year
+document.getElementById('ft-year').textContent = new Date().getFullYear();
+
+// Hero product label from first product
+const featuredProd = PRODUCTS_DB[0];
+if (featuredProd) {
+  const lbl = document.getElementById('hero-product-label');
+  if (lbl) lbl.textContent = featuredProd.name + ' — ' + (STORE.CURRENCY_SYMBOL || '$') + featuredProd.price.toFixed(2);
+}
+
+// Hero product count
+const countEl = document.getElementById('hero-products-count');
+if (countEl) countEl.textContent = PRODUCTS_DB.length;
+
+// ─── BUILD CATEGORY GRID ──────────────────────────────────────
+const catIcons = { skincare:'🌿', makeup:'💄', fragrance:'🌸', body:'✨', sets:'🎁', sale:'⭐', new:'⭐' };
+const catLabels = { skincare:'Skincare', makeup:'Makeup', fragrance:'Fragrance', body:'Body', sets:'Gift Sets', sale:'Sale', new:'New In' };
+const catGrid = document.getElementById('cat-grid');
+if (catGrid) {
+  const cats = getCategories(); // from products.js
+  if (Object.keys(cats).length === 0) {
+    // No products yet — show placeholder categories
+    const placeholders = ['skincare','makeup','fragrance','body','sets','new'];
+    catGrid.innerHTML = placeholders.map(cat => `
+      <a href="pages/shop.html?cat=${cat}" class="cat-card">
+        <div class="cat-icon">${catIcons[cat] || '✦'}</div>
+        <span class="cat-name">${catLabels[cat] || cat}</span>
+        <span class="cat-count">Add products</span>
+      </a>
+    `).join('');
+  } else {
+    catGrid.innerHTML = Object.entries(cats).map(([cat, count]) => `
+      <a href="pages/shop.html?cat=${cat}" class="cat-card">
+        <div class="cat-icon">${catIcons[cat] || '✦'}</div>
+        <span class="cat-name">${catLabels[cat] || cat}</span>
+        <span class="cat-count">${count} product${count !== 1 ? 's' : ''}</span>
+      </a>
+    `).join('');
+  }
+}
+
+// ─── BUILD FEATURED PRODUCTS GRID ────────────────────────────
+const featuredGrid = document.getElementById('featured-grid');
+if (featuredGrid) {
+  const products = getAllProducts().slice(0, 6);
+  if (!products.length) {
+    featuredGrid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:80px 40px">
+        <div style="font-size:48px;color:var(--gold-20);margin-bottom:20px">✦</div>
+        <h3 style="font-family:var(--f-serif);font-size:24px;color:var(--cream);margin-bottom:12px">No products yet</h3>
+        <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.35);margin-bottom:28px">
+          Open <strong>js/products.js</strong> and add your real products.<br>
+          They will appear here automatically.
+        </p>
+        <a href="js/products.js" style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-30);padding:12px 24px">
+          Open products.js
+        </a>
+      </div>
+    `;
+  } else {
+    featuredGrid.innerHTML = products.map((p, i) => buildProductCard(p, i)).join('');
+    // Attach cart listeners
+    attachCardListeners(featuredGrid);
+  }
+}
+
+// ─── BUILD PRODUCT CARD ───────────────────────────────────────
+function buildProductCard(p, i = 0) {
+  const sym  = STORE.CURRENCY_SYMBOL || '$';
+  const imgHTML = p.images?.[0]
+    ? `<img src="${p.images[0]}" alt="${p.name}" class="pc-img" loading="${i < 3 ? 'eager' : 'lazy'}">`
+    : `<div class="pc-no-img"><div class="pc-no-img-icon">✦</div><p class="pc-no-img-text">Add product photos in products.js</p></div>`;
+  const saleHTML = p.salePrice
+    ? `<span class="pc-orig">${sym}${p.price.toFixed(2)}</span>`
+    : '';
+  const displayPrice = p.salePrice || p.price;
+
+  return `
+    <div class="product-card" data-reveal="up" data-delay="${Math.min(i % 3, 5)}">
+      ${p.new        ? '<span class="pc-badge badge-new">New</span>' : ''}
+      ${p.bestseller ? '<span class="pc-badge badge-bs">Bestseller</span>' : ''}
+      ${p.salePrice  ? '<span class="pc-badge badge-sale">Sale</span>' : ''}
+      <button class="pc-wl-btn" data-wl-id="${p.id}" aria-label="Save to wishlist"
+        onclick="Wishlist.toggle('${p.id}',this)">♡</button>
+      <div class="pc-vis pc-vis-m">
+        ${imgHTML}
+      </div>
+      <div class="pc-info">
+        <span class="pc-cat">${p.category}</span>
+        <h3 class="pc-name"><a href="pages/product.html?id=${p.id}">${p.name}</a></h3>
+        <p class="pc-desc">${p.shortDesc || p.description.slice(0, 90) + '…'}</p>
+        <div class="pc-foot">
+          <div class="pc-prices">
+            <span class="pc-price">${sym}${displayPrice.toFixed(2)}</span>
+            ${saleHTML}
+          </div>
+          <div class="pc-actions">
+            <button class="pc-add-btn add-to-cart-btn"
+              data-id="${p.id}" data-name="${p.name}" data-price="${displayPrice}">
+              <span>Add to Bag</span>
+            </button>
+            <a href="pages/checkout.html?buy=${p.id}" class="pc-buy-btn">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function attachCardListeners(container) {
+  container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = getProductById(btn.dataset.id);
+      if (p) Cart.add({ id: p.id, name: p.name, price: parseFloat(btn.dataset.price) });
+    });
+  });
+  // Sync wishlist state
+  container.querySelectorAll('[data-wl-id]').forEach(btn => {
+    if (Wishlist.has(btn.dataset.wlId)) {
+      btn.textContent = '♥'; btn.classList.add('wished');
+    }
+  });
+}
+
+// ─── LOAD REAL HOMEPAGE REVIEWS ───────────────────────────────
+// Shows the latest 3 reviews across all products
+const reviewsEl = document.getElementById('homepage-reviews');
+if (reviewsEl && typeof ReviewSystem !== 'undefined') {
+  // Gather all reviews from all products
+  try {
+    const allData = JSON.parse(localStorage.getItem('store_reviews_v1') || '{}');
+    const all = Object.values(allData).flat().sort((a, b) => b.timestamp - a.timestamp).slice(0, 3);
+    if (all.length) {
+      reviewsEl.innerHTML = `<div class="t-grid">` + all.map(r => {
+        const p = PRODUCTS_DB.find(x => x.id === r.productId);
+        return `
+          <div class="t-card">
+            <div class="t-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+            <p class="t-body">"${r.body}"</p>
+            <div class="t-author">
+              <div class="t-av t-av1">${r.avatar}</div>
+              <div>
+                <span class="t-name">${r.name}</span>
+                <span class="t-role">${p ? 'Verified buyer · ' + p.name : 'Verified buyer'}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('') + `</div>`;
+    }
+  } catch(e) {}
+}
+
+// ─── SEARCH SUGGESTIONS ───────────────────────────────────────
+const sugEl = document.getElementById('search-suggestions');
+if (sugEl) {
+  const cats = ['Skincare', 'Makeup', 'Fragrance', 'Body', 'Gift Sets'];
+  sugEl.innerHTML = cats.map(c => `<span class="sug-tag" onclick="document.querySelector('.search-input').value='${c}';document.querySelector('.search-input').dispatchEvent(new Event('input'))">${c}</span>`).join('');
+}
+</script>
+</body>
+</html>
