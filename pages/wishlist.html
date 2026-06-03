@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist | Your Brand</title>
+<link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="ld-logo" data-brand>YOUR BRAND</div>
+  <div class="ld-sub">Your Wishlist</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+<button id="back-top">↑</button>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-head"><div><div class="cart-head-title">Your Bag</div><div class="cart-head-count" id="cart-count-lbl">0 items</div></div><button id="cart-close-btn">✕</button></div>
+  <div id="cart-items-list"></div>
+  <div id="cart-empty-state"><div class="cart-empty-icon">✦</div><p class="cart-empty-txt">Your bag is empty.</p></div>
+  <div id="cart-footer" style="display:none">
+    <div class="cart-subtotal-row"><span class="cart-sub-lbl">Subtotal</span><span id="cart-total-price">$0.00</span></div>
+    <p class="cart-ship-note">Free shipping on orders over $150</p>
+    <button id="cart-checkout-btn">Proceed to Checkout</button>
+    <a href="checkout.html" class="cart-continue-link">Checkout</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button id="search-close-btn">✕ Close</button>
+  <div class="search-wrap"><input type="text" class="search-input" placeholder="Search products…" autocomplete="off"></div>
+  <div id="search-results"></div>
+</div>
+<div id="mobile-menu">
+  <nav>
+    <a href="../index.html" class="mob-link">Home <span>→</span></a>
+    <a href="shop.html"     class="mob-link">Shop <span>→</span></a>
+    <a href="login.html"    class="mob-link">Account <span>→</span></a>
+  </nav>
+</div>
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span data-brand>YOUR BRAND</span><sub data-brand-tagline>Haute Cosmétique</sub></a>
+    <nav class="nav-links">
+      <a href="shop.html?cat=skincare"  class="nav-link">Skincare</a>
+      <a href="shop.html?cat=makeup"    class="nav-link">Makeup</a>
+      <a href="shop.html?cat=fragrance" class="nav-link">Fragrance</a>
+      <a href="shop.html?cat=body"      class="nav-link">Body</a>
+      <a href="about.html"              class="nav-link">Maison</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open-btn">⌕</button>
+      <a href="wishlist.html" class="nav-icon-btn" style="color:var(--gold)">♥</a>
+      <a href="login.html"    class="nav-icon-btn"><span class="auth-avatar">👤</span></a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div style="padding:150px var(--pad) 64px;background:var(--ink);border-bottom:1px solid var(--line);position:relative;overflow:hidden">
+  <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-family:var(--f-display);font-size:18vw;font-weight:900;color:rgba(196,160,96,.022);pointer-events:none;white-space:nowrap;line-height:1">WISHLIST</div>
+  <div style="position:relative">
+    <div class="s-eyebrow" data-reveal="up">Your Saved Items</div>
+    <h1 class="s-h2" style="font-size:clamp(40px,6vw,80px)" data-reveal="up">
+      Your <em>Wishlist</em>
+    </h1>
+    <p class="s-desc" data-reveal="up" data-delay="1">Everything you've fallen for — saved for when the moment is right.</p>
+  </div>
+</div>
+
+<!-- WISHLIST CONTENT -->
+<main style="padding:52px var(--pad);background:var(--ink)">
+  <!-- Toolbar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid var(--line)" data-reveal="up">
+    <span style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(240,232,220,.28)">
+      <strong id="wl-count" style="color:var(--gold);font-weight:300">0</strong> saved items
+    </span>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button onclick="addAllToBag()" style="font-size:8.5px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(240,232,220,.35);padding:9px 18px;border:1px solid var(--line);background:none;cursor:none;transition:all .3s" onmouseenter="this.style.borderColor='var(--gold-30)';this.style.color='var(--gold-pale)'" onmouseleave="this.style.borderColor='';this.style.color=''">Add All to Bag</button>
+      <button onclick="shareWishlist()" style="font-size:8.5px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(240,232,220,.35);padding:9px 18px;border:1px solid var(--line);background:none;cursor:none;transition:all .3s" onmouseenter="this.style.borderColor='var(--gold-30)';this.style.color='var(--gold-pale)'" onmouseleave="this.style.borderColor='';this.style.color=''">Share List</button>
+      <button onclick="clearWishlist()" style="font-size:8.5px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(200,120,96,.4);padding:9px 18px;border:1px solid rgba(200,120,96,.2);background:none;cursor:none;transition:all .3s" onmouseenter="this.style.borderColor='rgba(200,120,96,.4)'" onmouseleave="this.style.borderColor='rgba(200,120,96,.2)'">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Wishlist grid -->
+  <div class="products-grid cols-4" id="wishlist-grid"></div>
+
+  <!-- Empty state -->
+  <div id="wishlist-empty" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:100px 40px;text-align:center">
+    <div style="font-size:60px;color:var(--gold-20);margin-bottom:22px">♡</div>
+    <h2 style="font-family:var(--f-serif);font-size:28px;color:var(--cream);margin-bottom:12px">Your wishlist is <em style="font-style:italic;color:var(--gold)">empty</em></h2>
+    <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.32);margin-bottom:32px;line-height:1.8">
+      Save items you love and come back to them whenever you're ready.<br>Your taste, preserved.
+    </p>
+    <a href="shop.html" class="btn btn-gold magnetic"><span>Explore Collection</span></a>
+  </div>
+</main>
+
+<!-- YOU MAY ALSO LIKE -->
+<section style="padding:var(--section) var(--pad);background:var(--char)" id="reco-section">
+  <div class="section-head center" data-reveal="up">
+    <div class="s-eyebrow center">Recommended</div>
+    <h2 class="s-h2">You might also <em>love</em></h2>
+  </div>
+  <div class="products-grid cols-4" id="reco-grid" style="margin-top:48px"></div>
+</section>
+
+<footer style="padding:44px var(--pad) 28px;background:#040302;border-top:1px solid var(--line)">
+  <div class="ft-bottom">
+    <a href="../index.html" class="ft-brand" style="font-size:15px" data-brand>YOUR BRAND</a>
+    <span class="ft-copy">© <span id="ft-yr"></span> <span data-brand>YOUR BRAND</span>. All rights reserved.</span>
+    <div class="ft-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+</footer>
+
+<script src="../js/config.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/store.js"></script>
+<script src="../js/ui.js"></script>
+<script>
+'use strict';
+document.getElementById('ft-yr').textContent = new Date().getFullYear();
+const sym = STORE.CURRENCY_SYMBOL || '$';
+
+// ── RENDER WISHLIST ────────────────────────────────────────────
+function renderWishlist() {
+  const grid    = document.getElementById('wishlist-grid');
+  const empty   = document.getElementById('wishlist-empty');
+  const countEl = document.getElementById('wl-count');
+  if (!grid) return;
+
+  const ids     = Wishlist.getAll();
+  const items   = ids.map(id => getProductById(id)).filter(Boolean);
+
+  if (countEl) countEl.textContent = items.length;
+
+  if (!items.length) {
+    grid.style.display = 'none';
+    if (empty) empty.style.display = 'flex';
+    return;
+  }
+  grid.style.display = '';
+  if (empty) empty.style.display = 'none';
+
+  grid.innerHTML = items.map((p, i) => {
+    const dPrice = p.salePrice || p.price;
+    const imgHTML = p.images?.[0]
+      ? `<img src="${p.images[0]}" alt="${p.name}" class="pc-img" loading="lazy">`
+      : `<div class="pc-no-img"><div class="pc-no-img-icon">✦</div><p class="pc-no-img-text">Add photos in products.js</p></div>`;
+
+    return `
+      <div class="product-card" data-id="${p.id}" data-reveal="up" data-delay="${i % 4}">
+        <button class="pc-wl-btn wished" data-wl-id="${p.id}"
+          onclick="removeItem('${p.id}',this.closest('.product-card'))"
+          aria-label="Remove from wishlist" title="Remove">✕</button>
+        <div class="pc-vis pc-vis-m">
+          ${imgHTML}
+        </div>
+        <div class="pc-info">
+          <span class="pc-cat">${p.category}</span>
+          <h3 class="pc-name"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+          <p class="pc-desc">${p.shortDesc || ''}</p>
+          <div class="pc-foot">
+            <div class="pc-prices">
+              <span class="pc-price">${sym}${dPrice.toFixed(2)}</span>
+              ${p.salePrice ? `<span class="pc-orig">${sym}${p.price.toFixed(2)}</span>` : ''}
+            </div>
+            <div class="pc-actions">
+              <button class="pc-add-btn"
+                onclick="Cart.add({id:'${p.id}',name:'${p.name.replace(/'/g,"\\'")}',price:${dPrice},image:${p.images?.[0] ? `'${p.images[0]}'` : 'null'}})">
+                <span>Add to Bag</span>
+              </button>
+              <a href="checkout.html?buy=${p.id}" class="pc-buy-btn">Buy Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Re-run reveal
+  setTimeout(() => {
+    grid.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4 * 0.08) + 's';
+      el.classList.add('revealed');
+    });
+  }, 40);
+
+  renderReco(ids);
+}
+
+// ── REMOVE ITEM ────────────────────────────────────────────────
+function removeItem(id, card) {
+  Wishlist.remove(id);
+  if (card) {
+    card.style.transition = 'opacity .4s, transform .4s';
+    card.style.opacity    = '0';
+    card.style.transform  = 'scale(.95)';
+    setTimeout(() => renderWishlist(), 420);
+  }
+}
+
+// ── ADD ALL TO BAG ─────────────────────────────────────────────
+function addAllToBag() {
+  const ids   = Wishlist.getAll();
+  const items = ids.map(id => getProductById(id)).filter(Boolean);
+  if (!items.length) { showToast('Your wishlist is empty!', '♡'); return; }
+  items.forEach(p => Cart.add({ id: p.id, name: p.name, price: p.salePrice || p.price, image: p.images?.[0] || null }));
+  showToast(`${items.length} item${items.length !== 1 ? 's' : ''} added to bag`, '✦');
+  Cart.open();
+}
+
+// ── SHARE WISHLIST ─────────────────────────────────────────────
+function shareWishlist() {
+  const ids = Wishlist.getAll();
+  if (!ids.length) { showToast('Nothing to share yet!', '♡'); return; }
+  const url = window.location.origin + window.location.pathname + '?shared=' + ids.join(',');
+  if (navigator.share) {
+    navigator.share({ title: 'My Wishlist', url }).catch(() => copyToClipboard(url));
+  } else {
+    copyToClipboard(url);
+  }
+}
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('Wishlist link copied!', '✦'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('Wishlist link copied!', '✦');
+  }
+}
+
+// ── CLEAR ALL ──────────────────────────────────────────────────
+function clearWishlist() {
+  if (!Wishlist.getAll().length) return;
+  if (confirm('Clear your entire wishlist?')) {
+    Wishlist.getAll().forEach(id => Wishlist.remove(id));
+    renderWishlist();
+    showToast('Wishlist cleared', '♡');
+  }
+}
+
+// ── RENDER RECOMMENDATIONS ─────────────────────────────────────
+function renderReco(excludeIds = []) {
+  const grid = document.getElementById('reco-grid');
+  if (!grid) return;
+  const reco = getAllProducts().filter(p => !excludeIds.includes(p.id)).slice(0, 4);
+  if (!reco.length) {
+    document.getElementById('reco-section').style.display = 'none';
+    return;
+  }
+  grid.innerHTML = reco.map((p, i) => {
+    const dPrice = p.salePrice || p.price;
+    return `
+      <div class="product-card" data-reveal="up" data-delay="${i}">
+        <button class="pc-wl-btn" data-wl-id="${p.id}"
+          onclick="Wishlist.toggle('${p.id}',this)"
+          aria-label="Save">${Wishlist.has(p.id) ? '♥' : '♡'}</button>
+        <div class="pc-vis pc-vis-m">
+          ${p.images?.[0]
+            ? `<img src="${p.images[0]}" alt="${p.name}" class="pc-img" loading="lazy">`
+            : `<div class="pc-no-img"><div class="pc-no-img-icon">✦</div></div>`}
+        </div>
+        <div class="pc-info">
+          <span class="pc-cat">${p.category}</span>
+          <h3 class="pc-name"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+          <p class="pc-desc">${p.shortDesc || ''}</p>
+          <div class="pc-foot">
+            <span class="pc-price">${sym}${dPrice.toFixed(2)}</span>
+            <div class="pc-actions">
+              <button class="pc-add-btn" onclick="Cart.add({id:'${p.id}',name:'${p.name.replace(/'/g,"\\'")}',price:${dPrice}})"><span>Add</span></button>
+              <a href="checkout.html?buy=${p.id}" class="pc-buy-btn">Buy Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  setTimeout(() => {
+    grid.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.1) + 's';
+      el.classList.add('revealed');
+    });
+  }, 80);
+}
+
+// ── HANDLE SHARED URL ──────────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const shared    = urlParams.get('shared');
+if (shared) {
+  shared.split(',').forEach(id => { if (id.trim()) Wishlist.add(id.trim()); });
+  showToast('Shared wishlist loaded!', '♡');
+  history.replaceState({}, '', window.location.pathname);
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderWishlist();
+});
+</script>
+</body>
+</html>

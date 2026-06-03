@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | Your Brand</title>
+<link rel="stylesheet" href="../css/main.css">
+<style>
+body{cursor:auto}
+#cursor-dot,#cursor-ring{display:none}
+.co-page{min-height:100vh;display:grid;grid-template-columns:1fr 420px;background:var(--ink)}
+.co-main{padding:80px 64px;overflow-y:auto;border-right:1px solid var(--line)}
+.co-sidebar{padding:80px 44px;background:var(--char);position:sticky;top:0;height:100vh;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--gold-30) transparent}
+.co-sidebar::-webkit-scrollbar{width:2px}
+.co-sidebar::-webkit-scrollbar-thumb{background:var(--gold-30)}
+/* Header */
+.co-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:44px}
+.co-logo{font-family:var(--f-display);font-size:17px;letter-spacing:.3em;color:var(--gold);cursor:pointer}
+.co-secure{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:200;letter-spacing:.35em;text-transform:uppercase;color:rgba(240,232,220,.25)}
+/* Breadcrumb */
+.co-steps{display:flex;align-items:center;gap:0;margin-bottom:48px;overflow-x:auto}
+.co-step{display:flex;align-items:center;gap:10px;font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(240,232,220,.22);flex-shrink:0;padding-right:20px;position:relative;cursor:pointer;transition:color .3s;border:none;background:none}
+.co-step::after{content:'→';position:absolute;right:0;color:rgba(240,232,220,.1);font-size:12px}
+.co-step:last-child::after{display:none}
+.co-step-num{width:26px;height:26px;border-radius:50%;border:1px solid rgba(240,232,220,.16);display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-size:10px;transition:all .3s;flex-shrink:0}
+.co-step.active{color:var(--gold-pale)}
+.co-step.active .co-step-num{border-color:var(--gold);color:var(--gold);background:rgba(196,160,96,.1)}
+.co-step.done{color:var(--sage)}
+.co-step.done .co-step-num{border-color:var(--sage);background:var(--sage);color:var(--void)}
+.co-step.done .co-step-num::after{content:'✓'}
+.co-step.done .step-label{display:none}
+/* Step panels */
+.co-panel{display:none}
+.co-panel.active{display:block}
+.co-title{font-family:var(--f-serif);font-size:clamp(22px,2.5vw,34px);font-weight:500;color:var(--cream);margin-bottom:7px}
+.co-title em{font-style:italic;color:var(--gold)}
+.co-subtitle{font-family:var(--f-serif);font-style:italic;font-size:14px;color:rgba(240,232,220,.35);margin-bottom:32px}
+/* Form */
+.co-fields{display:flex;flex-direction:column;gap:13px;margin-bottom:28px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-group{display:flex;flex-direction:column}
+.f-lbl{font-size:8.5px;font-weight:200;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.f-in{padding:15px 16px;background:rgba(240,232,220,.04);border:1px solid rgba(196,160,96,.18);color:var(--cream);font-family:var(--f-body);font-size:14px;font-weight:200;transition:border-color .3s,background .3s;-webkit-appearance:none}
+.f-in:focus{border-color:rgba(196,160,96,.55);background:rgba(240,232,220,.06);outline:none}
+.f-in::placeholder{color:rgba(240,232,220,.2)}
+.f-in.error{border-color:rgba(200,120,96,.7)}
+.f-sel{padding:15px 16px;background:rgba(240,232,220,.04);border:1px solid rgba(196,160,96,.18);color:rgba(240,232,220,.7);font-family:var(--f-body);font-size:13px;font-weight:200;-webkit-appearance:none;cursor:pointer;transition:border-color .3s}
+.f-sel:focus{border-color:rgba(196,160,96,.55);outline:none}
+.f-sel option{background:var(--char)}
+/* Shipping methods */
+.ship-methods{display:flex;flex-direction:column;gap:2px;margin-bottom:28px}
+.ship-opt{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--line);background:rgba(240,232,220,.02);cursor:pointer;transition:all .3s;position:relative}
+.ship-opt:hover{border-color:rgba(196,160,96,.3);background:rgba(196,160,96,.03)}
+.ship-opt.selected{border-color:var(--gold);background:rgba(196,160,96,.06)}
+.ship-opt input{display:none}
+.ship-radio{width:16px;height:16px;border-radius:50%;border:1px solid rgba(196,160,96,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.ship-opt.selected .ship-radio{border-color:var(--gold)}
+.ship-opt.selected .ship-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.ship-icon{font-size:20px;flex-shrink:0}
+.ship-info{flex:1}
+.ship-name{font-size:11px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);display:block;margin-bottom:2px}
+.ship-eta{font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.35)}
+.ship-price{font-family:var(--f-display);font-size:15px;color:var(--gold);flex-shrink:0}
+.ship-price.free{color:var(--sage)}
+/* Payment methods */
+.pay-tabs{display:flex;gap:2px;margin-bottom:22px}
+.pay-tab{flex:1;padding:14px 10px;border:1px solid var(--line);background:rgba(240,232,220,.02);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:8.5px;font-weight:200;letter-spacing:.35em;text-transform:uppercase;color:rgba(240,232,220,.35);cursor:pointer;transition:all .3s}
+.pay-tab .pay-icon{font-size:19px}
+.pay-tab:hover{border-color:rgba(196,160,96,.3);color:var(--gold-pale)}
+.pay-tab.active{border-color:var(--gold);color:var(--gold);background:rgba(196,160,96,.06)}
+.pay-form{display:none}
+.pay-form.active{display:block}
+.card-wrap{position:relative}
+.card-type{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--f-display);font-size:10px;color:var(--gold);letter-spacing:.3em}
+/* Coupon */
+.coupon-wrap{display:flex;gap:0;margin-bottom:20px}
+.coupon-in{flex:1;padding:13px 16px;background:rgba(240,232,220,.04);border:1px solid rgba(196,160,96,.18);border-right:none;color:var(--cream);font-family:var(--f-body);font-size:12px;font-weight:200;transition:border-color .3s}
+.coupon-in:focus{border-color:rgba(196,160,96,.5);outline:none}
+.coupon-in::placeholder{color:rgba(240,232,220,.22);font-size:10px;letter-spacing:.3em}
+.coupon-btn{padding:13px 22px;background:rgba(196,160,96,.12);border:1px solid rgba(196,160,96,.3);font-size:8.5px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:all .3s}
+.coupon-btn:hover{background:rgba(196,160,96,.2)}
+.coupon-msg{font-size:11px;font-weight:200;margin-top:7px;font-family:var(--f-serif);font-style:italic}
+/* Nav buttons */
+.co-nav{display:flex;gap:14px;align-items:center;margin-top:36px}
+.co-next{flex:1;padding:18px;background:var(--gold);color:var(--void);font-family:var(--f-body);font-size:9px;font-weight:300;letter-spacing:.5em;text-transform:uppercase;cursor:pointer;border:none;position:relative;overflow:hidden;transition:background .3s}
+.co-next::before{content:'';position:absolute;inset:0;background:var(--warm);transform:translateX(-102%);transition:transform .55s var(--eout)}
+.co-next:hover::before{transform:translateX(0)}
+.co-next span{position:relative;z-index:1}
+.co-next:disabled{opacity:.5;cursor:not-allowed}
+.co-next:disabled::before{display:none}
+.co-back{padding:18px 24px;border:1px solid var(--line);font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:rgba(240,232,220,.35);cursor:pointer;transition:all .3s;background:none}
+.co-back:hover{border-color:var(--gold-30);color:var(--gold-pale)}
+/* Gift wrap */
+.gift-opt{border:1px solid var(--line);padding:18px 20px;background:rgba(240,232,220,.02);margin-bottom:24px;cursor:pointer;display:flex;align-items:center;gap:14px}
+.gift-opt:hover{border-color:rgba(196,160,96,.25)}
+.gift-opt.checked{border-color:var(--gold);background:rgba(196,160,96,.04)}
+/* Sidebar */
+.co-sum-title{font-family:var(--f-display);font-size:13px;letter-spacing:.28em;color:var(--gold);display:block;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.co-items-list{margin-bottom:20px}
+.co-item{display:grid;grid-template-columns:54px 1fr auto;gap:12px;padding:15px 0;border-bottom:1px solid var(--line-s);align-items:start}
+.co-item-img{aspect-ratio:1;background:var(--mid);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--gold-30);overflow:hidden}
+.co-item-img img{width:100%;height:100%;object-fit:cover}
+.co-item-name{font-family:var(--f-serif);font-size:14px;color:var(--cream);display:block;margin-bottom:3px}
+.co-item-meta{font-size:9px;font-weight:200;letter-spacing:.28em;text-transform:uppercase;color:rgba(240,232,220,.28);display:block;margin-bottom:3px}
+.co-item-qty{font-size:10px;font-weight:200;letter-spacing:.2em;color:rgba(240,232,220,.25)}
+.co-item-price{font-family:var(--f-display);font-size:14px;color:var(--gold);white-space:nowrap}
+.co-totals{border-top:1px solid var(--line);padding-top:18px}
+.co-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0}
+.co-row-lbl{font-size:9px;font-weight:200;letter-spacing:.38em;text-transform:uppercase;color:rgba(240,232,220,.32)}
+.co-row-val{font-family:var(--f-body);font-size:14px;color:rgba(240,232,220,.55)}
+.co-row.grand{padding-top:14px;border-top:1px solid var(--line);margin-top:6px}
+.co-row.grand .co-row-lbl{color:var(--gold-pale);font-size:10px}
+.co-row.grand .co-row-val{font-family:var(--f-display);font-size:22px;color:var(--gold)}
+.co-ship-note{font-family:var(--f-serif);font-style:italic;font-size:12px;color:rgba(240,232,220,.22);margin-top:12px;text-align:center}
+.co-guarantees{display:flex;flex-direction:column;gap:7px;margin-top:20px;padding:14px 18px;border:1px solid var(--line);background:rgba(240,232,220,.02)}
+.co-g{display:flex;align-items:center;gap:9px;font-size:9px;font-weight:200;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,232,220,.3)}
+.co-g-icon{color:var(--sage);font-size:12px}
+/* Success overlay */
+#order-success{position:fixed;inset:0;z-index:999;background:var(--ink);display:none;flex-direction:column;align-items:center;justify-content:center;padding:var(--pad);text-align:center}
+.success-circle{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--sage),#5a7a50);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 28px;animation:popIn .6s var(--espring) both}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-h{font-family:var(--f-serif);font-size:clamp(28px,4vw,52px);font-weight:500;color:var(--cream);margin-bottom:12px}
+.success-h em{font-style:italic;color:var(--gold)}
+.success-p{font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.42);margin-bottom:10px;line-height:1.8;max-width:480px}
+.success-order{font-family:var(--f-display);font-size:13px;letter-spacing:.3em;color:var(--gold);display:block;margin-bottom:44px}
+.success-divider{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold-30),transparent);margin:0 auto 32px}
+@media(max-width:1000px){.co-page{grid-template-columns:1fr}.co-sidebar{position:static;height:auto;border-top:1px solid var(--line)}.co-main{padding:80px var(--pad) 60px}}
+@media(max-width:680px){.f-row{grid-template-columns:1fr}.co-main{padding:80px var(--pad) 48px}.pay-tabs{flex-wrap:wrap}.co-nav{flex-wrap:wrap}.co-next,.co-back{width:100%}}
+</style>
+</head>
+<body>
+<div id="page-loader" aria-hidden="true">
+  <div class="ld-logo" data-brand>YOUR BRAND</div>
+  <div class="ld-sub">Secure Checkout</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<!-- ORDER SUCCESS -->
+<div id="order-success" role="alert">
+  <div class="success-circle">✓</div>
+  <h1 class="success-h">Order <em>Confirmed!</em></h1>
+  <p class="success-p">Thank you for your order. We'll prepare it with care and send you a confirmation email shortly.</p>
+  <span class="success-order" id="success-order-num">AUR-000000</span>
+  <div class="success-divider"></div>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+    <a href="../index.html" class="btn btn-gold"><span>Back to Home</span></a>
+    <a href="shop.html"     class="btn btn-outline"><span>Continue Shopping</span></a>
+  </div>
+</div>
+
+<!-- CHECKOUT PAGE -->
+<div class="co-page" id="co-page">
+
+  <!-- MAIN -->
+  <main class="co-main">
+    <div class="co-header">
+      <a href="../index.html" class="co-logo" data-brand>YOUR BRAND</a>
+      <div class="co-secure">🔒 Secure Checkout · SSL Encrypted</div>
+    </div>
+
+    <!-- Step breadcrumb -->
+    <div class="co-steps" id="co-steps">
+      <button class="co-step active" data-step="1">
+        <div class="co-step-num">1</div>
+        <span class="step-label">Contact</span>
+      </button>
+      <button class="co-step future" data-step="2">
+        <div class="co-step-num">2</div>
+        <span class="step-label">Shipping</span>
+      </button>
+      <button class="co-step future" data-step="3">
+        <div class="co-step-num">3</div>
+        <span class="step-label">Payment</span>
+      </button>
+    </div>
+
+    <!-- STEP 1: CONTACT + ADDRESS -->
+    <div class="co-panel active" id="panel-1">
+      <h2 class="co-title">Contact & <em>Delivery</em></h2>
+      <p class="co-subtitle">Where shall we send your order?</p>
+      <div class="co-fields">
+        <div class="f-group">
+          <label class="f-lbl" for="f-email">Email Address *</label>
+          <input class="f-in" type="email" id="f-email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="f-phone">Phone (for delivery updates)</label>
+          <input class="f-in" type="tel" id="f-phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
+        </div>
+        <div style="height:1px;background:var(--line);margin:4px 0"></div>
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-lbl" for="f-fname">First Name *</label>
+            <input class="f-in" type="text" id="f-fname" placeholder="First name" required autocomplete="given-name">
+          </div>
+          <div class="f-group">
+            <label class="f-lbl" for="f-lname">Last Name *</label>
+            <input class="f-in" type="text" id="f-lname" placeholder="Last name" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="f-addr1">Address Line 1 *</label>
+          <input class="f-in" type="text" id="f-addr1" placeholder="Street address" required autocomplete="address-line1">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="f-addr2">Address Line 2</label>
+          <input class="f-in" type="text" id="f-addr2" placeholder="Apartment, suite, unit…" autocomplete="address-line2">
+        </div>
+        <div class="f-row">
+          <div class="f-group">
+            <label class="f-lbl" for="f-city">City *</label>
+            <input class="f-in" type="text" id="f-city" placeholder="City" required autocomplete="address-level2">
+          </div>
+          <div class="f-group">
+            <label class="f-lbl" for="f-zip">Postcode / ZIP *</label>
+            <input class="f-in" type="text" id="f-zip" placeholder="Postcode" required autocomplete="postal-code">
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="f-country">Country *</label>
+          <select class="f-sel" id="f-country" required autocomplete="country">
+            <option value="">Select country…</option>
+            <option>United States</option><option>United Kingdom</option>
+            <option>France</option><option>Germany</option><option>Australia</option>
+            <option>Canada</option><option>Japan</option><option>UAE</option>
+            <option>Singapore</option><option>India</option><option>Netherlands</option>
+            <option>Sweden</option><option>Switzerland</option><option>Italy</option>
+            <option>Spain</option><option>Brazil</option><option>Mexico</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="f-note">Order Note (optional)</label>
+          <input class="f-in" type="text" id="f-note" placeholder="Gift message, special instructions…">
+        </div>
+      </div>
+      <div class="co-nav">
+        <a href="shop.html" class="co-back">← Back to Shop</a>
+        <button class="co-next" onclick="goStep(2)"><span>Continue to Shipping →</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2: SHIPPING -->
+    <div class="co-panel" id="panel-2" style="display:none">
+      <h2 class="co-title">Shipping <em>Method</em></h2>
+      <p class="co-subtitle">Choose how your order arrives.</p>
+
+      <div class="ship-methods">
+        <label class="ship-opt selected" onclick="selectShipping(this,'free',0)">
+          <input type="radio" name="ship" value="free" checked>
+          <div class="ship-radio"></div>
+          <span class="ship-icon">📦</span>
+          <div class="ship-info"><span class="ship-name">Standard Delivery</span><span class="ship-eta">5–7 business days</span></div>
+          <span class="ship-price free">Free</span>
+        </label>
+        <label class="ship-opt" onclick="selectShipping(this,'express',24)">
+          <input type="radio" name="ship" value="express">
+          <div class="ship-radio"></div>
+          <span class="ship-icon">⚡</span>
+          <div class="ship-info"><span class="ship-name">Express Delivery</span><span class="ship-eta">2–3 business days</span></div>
+          <span class="ship-price" id="ship-express-price">$24.00</span>
+        </label>
+        <label class="ship-opt" onclick="selectShipping(this,'overnight',38)">
+          <input type="radio" name="ship" value="overnight">
+          <div class="ship-radio"></div>
+          <span class="ship-icon">🚀</span>
+          <div class="ship-info"><span class="ship-name">Overnight Delivery</span><span class="ship-eta">Next business day</span></div>
+          <span class="ship-price">$38.00</span>
+        </label>
+        <label class="ship-opt" onclick="selectShipping(this,'pickup',0)">
+          <input type="radio" name="ship" value="pickup">
+          <div class="ship-radio"></div>
+          <span class="ship-icon">🏪</span>
+          <div class="ship-info"><span class="ship-name">Click & Collect</span><span class="ship-eta">Available at select locations</span></div>
+          <span class="ship-price free">Free</span>
+        </label>
+      </div>
+
+      <!-- Gift wrap -->
+      <div class="gift-opt" id="gift-opt" onclick="toggleGift(this)">
+        <span style="font-size:20px">🎁</span>
+        <div style="flex:1">
+          <span style="font-size:11px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);display:block;margin-bottom:3px">Add Gift Wrapping — $8.00</span>
+          <span style="font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.35)">Luxury tissue, ribbon, and a handwritten note.</span>
+        </div>
+        <div class="f-check" id="gift-check"></div>
+      </div>
+
+      <div class="co-nav">
+        <button class="co-back" onclick="goStep(1)">← Back</button>
+        <button class="co-next" onclick="goStep(3)"><span>Continue to Payment →</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 3: PAYMENT -->
+    <div class="co-panel" id="panel-3" style="display:none">
+      <h2 class="co-title">Secure <em>Payment</em></h2>
+      <p class="co-subtitle">Your payment details are encrypted and never stored.</p>
+
+      <!-- Payment method tabs -->
+      <div class="pay-tabs">
+        <button class="pay-tab active" onclick="selectPayMethod('card',this)">
+          <span class="pay-icon">💳</span>Card
+        </button>
+        <button class="pay-tab" onclick="selectPayMethod('paypal',this)">
+          <span class="pay-icon" style="font-weight:700;color:#0070ba">P</span>PayPal
+        </button>
+        <button class="pay-tab" onclick="selectPayMethod('apple',this)">
+          <span class="pay-icon">🍎</span>Apple Pay
+        </button>
+        <button class="pay-tab" onclick="selectPayMethod('google',this)">
+          <span class="pay-icon">G</span>Google Pay
+        </button>
+      </div>
+
+      <!-- Card form -->
+      <div class="pay-form active" id="pf-card">
+        <div class="co-fields">
+          <div class="f-group">
+            <label class="f-lbl" for="cc-name">Name on Card *</label>
+            <input class="f-in" type="text" id="cc-name" placeholder="As printed on card" required autocomplete="cc-name">
+          </div>
+          <div class="f-group card-wrap">
+            <label class="f-lbl" for="cc-num">Card Number *</label>
+            <input class="f-in" type="text" id="cc-num" placeholder="0000 0000 0000 0000" maxlength="19" required autocomplete="cc-number">
+            <span class="card-type" id="card-type-badge"></span>
+          </div>
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-lbl" for="cc-exp">Expiry Date *</label>
+              <input class="f-in" type="text" id="cc-exp" placeholder="MM/YY" maxlength="5" required autocomplete="cc-exp">
+            </div>
+            <div class="f-group">
+              <label class="f-lbl" for="cc-cvv">Security Code *</label>
+              <input class="f-in" type="text" id="cc-cvv" placeholder="CVV" maxlength="4" required autocomplete="cc-csc">
+            </div>
+          </div>
+        </div>
+        <label class="check-wrap" style="margin-bottom:20px">
+          <input type="checkbox" id="billing-same" checked>
+          <div class="check-box"></div>
+          <span class="check-lbl">Billing address same as delivery address</span>
+        </label>
+      </div>
+
+      <!-- PayPal -->
+      <div class="pay-form" id="pf-paypal" style="display:none">
+        <div style="border:1px solid var(--line);padding:40px;text-align:center;background:rgba(240,232,220,.02)">
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.4);line-height:1.8">
+            You'll be redirected to PayPal to complete payment securely. Your order will be preserved.
+          </p>
+        </div>
+        <div style="height:20px"></div>
+      </div>
+
+      <!-- Apple Pay / Google Pay -->
+      <div class="pay-form" id="pf-apple" style="display:none">
+        <div style="border:1px solid var(--line);padding:40px;text-align:center;background:rgba(240,232,220,.02)">
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.4);line-height:1.8">
+            Apple Pay will be activated on compatible devices.<br>
+            <span style="font-size:13px">Requires Safari on iPhone/iPad/Mac.</span>
+          </p>
+        </div>
+        <div style="height:20px"></div>
+      </div>
+      <div class="pay-form" id="pf-google" style="display:none">
+        <div style="border:1px solid var(--line);padding:40px;text-align:center;background:rgba(240,232,220,.02)">
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.4);line-height:1.8">
+            Google Pay will be activated on compatible browsers.
+          </p>
+        </div>
+        <div style="height:20px"></div>
+      </div>
+
+      <!-- Coupon -->
+      <div class="coupon-wrap">
+        <input class="coupon-in" type="text" id="coupon-input" placeholder="DISCOUNT CODE" autocomplete="off">
+        <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="coupon-msg" id="coupon-msg"></div>
+
+      <!-- Place order -->
+      <div class="co-nav" style="margin-top:28px">
+        <button class="co-back" onclick="goStep(2)">← Back</button>
+        <button class="co-next" id="place-order-btn" onclick="placeOrder()">
+          <span id="place-order-label">Place Order · <span id="order-btn-total">$0.00</span></span>
+        </button>
+      </div>
+      <p style="font-size:9px;font-weight:200;letter-spacing:.25em;color:rgba(240,232,220,.18);text-align:center;margin-top:18px;text-transform:uppercase">
+        🔒 256-bit SSL · PCI DSS compliant · Your data is safe
+      </p>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="co-sidebar">
+    <span class="co-sum-title">Order Summary</span>
+    <div class="co-items-list" id="co-items-list"></div>
+    <div class="co-totals">
+      <div class="co-row"><span class="co-row-lbl">Subtotal</span><span class="co-row-val" id="co-sub">—</span></div>
+      <div class="co-row"><span class="co-row-lbl">Shipping</span><span class="co-row-val" id="co-ship">Free</span></div>
+      <div class="co-row"><span class="co-row-lbl">Tax (<span id="tax-rate-lbl">8</span>%)</span><span class="co-row-val" id="co-tax">—</span></div>
+      <div class="co-row" id="co-discount-row" style="display:none"><span class="co-row-lbl" style="color:var(--sage)">Discount</span><span class="co-row-val" id="co-discount" style="color:var(--sage)">—</span></div>
+      <div class="co-row grand"><span class="co-row-lbl">Total</span><span class="co-row-val" id="co-total">—</span></div>
+    </div>
+    <p class="co-ship-note">🌿 We plant one tree for every order</p>
+    <div class="co-guarantees">
+      <div class="co-g"><span class="co-g-icon">✓</span>30-day hassle-free returns</div>
+      <div class="co-g"><span class="co-g-icon">✓</span>Free gift wrapping available</div>
+      <div class="co-g"><span class="co-g-icon">✓</span>Earn loyalty points on this order</div>
+      <div class="co-g"><span class="co-g-icon">✓</span>Free sample in every order</div>
+    </div>
+  </aside>
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/store.js"></script>
+<script>
+'use strict';
+
+// ── STATE ──────────────────────────────────────────────────────
+let currentStep    = 1;
+let shippingCost   = 0;
+let giftWrap       = false;
+let discountAmount = 0;
+let appliedCoupon  = null;
+
+// ── STEP NAVIGATION ────────────────────────────────────────────
+function goStep(n) {
+  if (n > currentStep && !validateStep(currentStep)) return;
+  currentStep = n;
+
+  document.querySelectorAll('.co-panel').forEach((p, i) => {
+    p.classList.toggle('active', i + 1 === n);
+    p.style.display = i + 1 === n ? 'block' : 'none';
+  });
+  document.querySelectorAll('.co-step').forEach((s, i) => {
+    s.classList.remove('active','done','future');
+    if (i + 1 < n)  s.classList.add('done');
+    else if (i + 1 === n) s.classList.add('active');
+    else s.classList.add('future');
+  });
+
+  document.querySelector('.co-main')?.scrollTo({ top: 0, behavior: 'smooth' });
+  updateTotals();
+}
+
+// Step breadcrumb click
+document.querySelectorAll('.co-step').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const s = parseInt(btn.dataset.step);
+    if (s < currentStep) goStep(s);
+  });
+});
+
+// ── VALIDATION ─────────────────────────────────────────────────
+function validateStep(n) {
+  const panel = document.getElementById('panel-' + n);
+  if (!panel) return true;
+  let ok = true;
+  panel.querySelectorAll('[required]').forEach(field => {
+    field.classList.remove('error');
+    if (!field.value.trim()) { field.classList.add('error'); ok = false; }
+  });
+  const emailField = panel.querySelector('[type=email]');
+  if (emailField?.value && !/\S+@\S+\.\S+/.test(emailField.value)) {
+    emailField.classList.add('error'); ok = false;
+  }
+  if (!ok && typeof showToast !== 'undefined') showToast('Please fill in all required fields.', '⚠');
+  return ok;
+}
+
+// ── SHIPPING SELECTION ─────────────────────────────────────────
+function selectShipping(el, method, cost) {
+  document.querySelectorAll('.ship-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  shippingCost = cost;
+  updateTotals();
+}
+
+// ── GIFT WRAP ──────────────────────────────────────────────────
+function toggleGift(el) {
+  giftWrap = !giftWrap;
+  el.classList.toggle('checked', giftWrap);
+  const check = document.getElementById('gift-check');
+  if (check) { check.style.background = giftWrap ? 'var(--gold)' : ''; check.textContent = giftWrap ? '✓' : ''; }
+  updateTotals();
+}
+
+// ── PAYMENT METHOD ─────────────────────────────────────────────
+function selectPayMethod(method, btn) {
+  document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.pay-form').forEach(f => { f.classList.remove('active'); f.style.display = 'none'; });
+  const form = document.getElementById('pf-' + method);
+  if (form) { form.classList.add('active'); form.style.display = 'block'; }
+}
+
+// ── CARD FORMATTING ────────────────────────────────────────────
+document.getElementById('cc-num')?.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,16);
+  e.target.value = v.replace(/(.{4})/g,'$1 ').trim();
+  const badge = document.getElementById('card-type-badge');
+  if (badge) {
+    if (/^4/.test(v))        badge.textContent = 'VISA';
+    else if (/^5/.test(v))   badge.textContent = 'MC';
+    else if (/^3[47]/.test(v))badge.textContent = 'AMEX';
+    else badge.textContent = '';
+  }
+});
+document.getElementById('cc-exp')?.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g,'').slice(0,4);
+  if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  e.target.value = v;
+});
+document.getElementById('cc-cvv')?.addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/\D/g,'').slice(0,4);
+});
+
+// ── COUPON ─────────────────────────────────────────────────────
+function applyCoupon() {
+  const code = document.getElementById('coupon-input')?.value.trim().toUpperCase();
+  const msg  = document.getElementById('coupon-msg');
+  if (!code) return;
+
+  const coupon = STORE.COUPONS?.[code];
+  if (!coupon) {
+    if (msg) { msg.textContent = '✕ Invalid code. Check and try again.'; msg.style.color = 'var(--rose)'; }
+    return;
+  }
+
+  appliedCoupon = coupon;
+  if (msg) { msg.textContent = '✓ ' + coupon.desc + ' applied!'; msg.style.color = 'var(--sage)'; }
+  updateTotals();
+  if (typeof showToast !== 'undefined') showToast('Discount applied: ' + coupon.desc, '✦');
+}
+
+// ── UPDATE TOTALS ──────────────────────────────────────────────
+function updateTotals() {
+  const sym      = STORE.CURRENCY_SYMBOL || '$';
+  const taxRate  = STORE.TAX_RATE || 0.08;
+  document.getElementById('tax-rate-lbl').textContent = Math.round(taxRate * 100);
+
+  const items   = Cart.getItems();
+  const sub     = Cart.getTotal();
+  let   ship    = shippingCost;
+  const gift    = giftWrap ? 8 : 0;
+
+  // Free shipping threshold
+  if (sub >= (STORE.FREE_SHIPPING_THRESHOLD || 150) && ship === 0) ship = 0;
+
+  // Coupon
+  discountAmount = 0;
+  if (appliedCoupon) {
+    if (appliedCoupon.type === 'percent')   discountAmount = sub * (appliedCoupon.value / 100);
+    if (appliedCoupon.type === 'shipping')  ship = 0;
+  }
+
+  const taxable = sub - discountAmount + gift;
+  const tax     = taxable * taxRate;
+  const total   = taxable + ship + tax;
+
+  // Update DOM
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('co-sub',   sym + sub.toFixed(2));
+  set('co-ship',  ship === 0 ? 'Free' : sym + ship.toFixed(2));
+  set('co-tax',   sym + tax.toFixed(2));
+  set('co-total', sym + total.toFixed(2));
+  set('order-btn-total', sym + total.toFixed(2));
+
+  const discRow = document.getElementById('co-discount-row');
+  const discEl  = document.getElementById('co-discount');
+  if (discRow) discRow.style.display = discountAmount > 0 ? 'flex' : 'none';
+  if (discEl && discountAmount > 0) discEl.textContent = '−' + sym + discountAmount.toFixed(2);
+
+  // Render items
+  const list = document.getElementById('co-items-list');
+  if (list) {
+    list.innerHTML = items.length
+      ? items.map(item => `
+          <div class="co-item">
+            <div class="co-item-img">${item.image ? `<img src="${item.image}" alt="${item.name}">` : '✦'}</div>
+            <div>
+              <span class="co-item-name">${item.name}</span>
+              ${item.variant ? `<span class="co-item-meta">${item.variant}</span>` : ''}
+              ${item.size    ? `<span class="co-item-meta">${item.size}</span>` : ''}
+              <span class="co-item-qty">Qty: ${item.qty}</span>
+            </div>
+            <span class="co-item-price">${sym}${(item.price * item.qty).toFixed(2)}</span>
+          </div>
+        `).join('')
+      : `<p style="font-family:var(--f-serif);font-style:italic;font-size:14px;color:rgba(240,232,220,.28);text-align:center;padding:24px 0">Your bag is empty.<br><a href="shop.html" style="color:var(--gold)">Continue shopping →</a></p>`;
+  }
+}
+
+// ── PLACE ORDER ────────────────────────────────────────────────
+function placeOrder() {
+  if (!validateStep(3)) return;
+  if (!Cart.getItems().length) {
+    if (typeof showToast !== 'undefined') showToast('Your bag is empty!', '⚠');
+    return;
+  }
+
+  const btn = document.getElementById('place-order-btn');
+  if (btn) { btn.disabled = true; document.getElementById('place-order-label').textContent = 'Processing…'; btn.style.background = 'var(--dust)'; }
+
+  // Earn loyalty points
+  if (Auth.isLoggedIn()) Auth.earnPoints(Cart.getTotal());
+
+  // Simulate processing (replace with real Stripe call)
+  setTimeout(() => {
+    const orderNum = 'ORD-' + Date.now().toString().slice(-7);
+    document.getElementById('success-order-num').textContent = orderNum;
+
+    // Save order to localStorage for account page
+    try {
+      const orders = JSON.parse(localStorage.getItem('store_orders') || '[]');
+      orders.unshift({
+        id:        orderNum,
+        date:      new Date().toLocaleDateString(),
+        items:     Cart.getItems(),
+        total:     Cart.getTotal(),
+        status:    'Processing',
+        timestamp: Date.now(),
+      });
+      localStorage.setItem('store_orders', JSON.stringify(orders));
+    } catch(e) {}
+
+    Cart.clear();
+
+    // Show success
+    document.getElementById('co-page').style.display = 'none';
+    document.getElementById('order-success').style.display = 'flex';
+    window.scrollTo(0, 0);
+  }, 2200);
+}
+
+// ── HANDLE BUY NOW ─────────────────────────────────────────────
+// If arrived via "Buy Now", item is already in cart (Cart.clear + Cart.add done in product.html)
+const urlParams = new URLSearchParams(window.location.search);
+const buyId     = urlParams.get('buy');
+if (buyId && typeof getProductById !== 'undefined') {
+  const p = getProductById(buyId);
+  if (p) {
+    Cart.clear();
+    Cart.add({ id: p.id, name: p.name, price: p.salePrice || p.price, image: p.images?.[0] || null });
+  }
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  updateTotals();
+  // Keyboard: Enter to advance
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT' && currentStep < 3) {
+      e.preventDefault();
+      goStep(currentStep + 1);
+    }
+  });
+  // Coupon enter key
+  document.getElementById('coupon-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); }
+  });
+});
+</script>
+</body>
+</html>

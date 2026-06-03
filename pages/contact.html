@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Your Brand</title>
+<link rel="stylesheet" href="../css/main.css">
+<style>
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;background:var(--char)}
+.contact-info{padding:var(--section) var(--pad);border-right:1px solid var(--line)}
+.contact-form-panel{padding:var(--section) var(--pad);background:var(--ink)}
+.contact-channel{display:flex;align-items:flex-start;gap:18px;padding:22px 20px;border:1px solid var(--line);background:rgba(240,232,220,.02);margin-bottom:2px;transition:all .3s;cursor:none}
+.contact-channel:hover{border-color:rgba(196,160,96,.3);background:rgba(196,160,96,.03)}
+.cc-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.cc-title{font-size:8.5px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
+.cc-value{font-family:var(--f-serif);font-size:16px;color:var(--cream);display:block;margin-bottom:3px}
+.cc-note{font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.35)}
+.map-placeholder{margin-top:36px;height:200px;background:linear-gradient(145deg,#1e1008,#2e1810);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.map-pin{position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(196,160,96,.08);top:50%;left:50%;transform:translate(-50%,-50%);animation:ripple 4s ease-out infinite}
+.map-pin:nth-child(2){animation-delay:1.3s}.map-pin:nth-child(3){animation-delay:2.6s}
+@keyframes ripple{from{transform:translate(-50%,-50%) scale(.1);opacity:.4}to{transform:translate(-50%,-50%) scale(3);opacity:0}}
+.map-label{position:relative;z-index:2;text-align:center}
+/* FAQ */
+.faq-section{padding:var(--section) var(--pad);background:var(--ink)}
+.faq-list{display:flex;flex-direction:column;gap:2px;margin-top:52px}
+.faq-item{background:var(--char);border:1px solid var(--line);overflow:hidden;transition:border-color .3s}
+.faq-item:hover{border-color:var(--gold-30)}
+.faq-q{width:100%;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;font-family:var(--f-serif);font-size:17px;color:var(--cream);cursor:none;text-align:left;background:none;border:none;transition:color .3s}
+.faq-q:hover{color:var(--gold-pale)}
+.faq-icon{font-size:18px;color:var(--gold-30);flex-shrink:0;transition:transform .4s var(--eout),color .2s}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--gold)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--eout),padding .4s}
+.faq-item.open .faq-a{max-height:300px;padding:0 24px 20px}
+.faq-a-inner{font-family:var(--f-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.42);line-height:1.85;border-top:1px solid var(--line-s);padding-top:16px}
+/* Dropzone */
+.dropzone{border:1px dashed rgba(196,160,96,.22);padding:22px;text-align:center;cursor:none;transition:all .3s;background:rgba(240,232,220,.02)}
+.dropzone:hover,.dropzone.drag{border-color:rgba(196,160,96,.5);background:rgba(196,160,96,.04)}
+@media(max-width:1000px){.contact-layout{grid-template-columns:1fr}.contact-info{border-right:none;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="ld-logo" data-brand>YOUR BRAND</div>
+  <div class="ld-sub">Contact</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+<button id="back-top">↑</button>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-head"><div><div class="cart-head-title">Your Bag</div><div class="cart-head-count" id="cart-count-lbl">0 items</div></div><button id="cart-close-btn">✕</button></div>
+  <div id="cart-items-list"></div>
+  <div id="cart-empty-state"><div class="cart-empty-icon">✦</div><p class="cart-empty-txt">Your bag is empty.</p></div>
+  <div id="cart-footer" style="display:none">
+    <div class="cart-subtotal-row"><span class="cart-sub-lbl">Subtotal</span><span id="cart-total-price">$0.00</span></div>
+    <p class="cart-ship-note">Free shipping on orders over $150</p>
+    <button id="cart-checkout-btn">Proceed to Checkout</button>
+    <a href="checkout.html" class="cart-continue-link">Checkout</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button id="search-close-btn">✕ Close</button>
+  <div class="search-wrap"><input type="text" class="search-input" placeholder="Search products…" autocomplete="off"></div>
+  <div id="search-results"></div>
+</div>
+<div id="mobile-menu">
+  <nav>
+    <a href="../index.html" class="mob-link">Home <span>→</span></a>
+    <a href="shop.html"     class="mob-link">Shop <span>→</span></a>
+    <a href="login.html"    class="mob-link">Account <span>→</span></a>
+  </nav>
+</div>
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span data-brand>YOUR BRAND</span><sub data-brand-tagline></sub></a>
+    <nav class="nav-links">
+      <a href="shop.html?cat=skincare"  class="nav-link">Skincare</a>
+      <a href="shop.html?cat=makeup"    class="nav-link">Makeup</a>
+      <a href="about.html"              class="nav-link">Maison</a>
+      <a href="contact.html"            class="nav-link active">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open-btn">⌕</button>
+      <a href="wishlist.html" class="nav-icon-btn" style="position:relative">♡<span class="badge wishlist-badge">0</span></a>
+      <a href="login.html"    class="nav-icon-btn"><span class="auth-avatar">👤</span></a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="padding:160px var(--pad) 80px;background:var(--ink);border-bottom:1px solid var(--line);position:relative;overflow:hidden">
+  <div style="position:absolute;top:-200px;right:-100px;width:600px;height:600px;border-radius:50%;filter:blur(100px);background:radial-gradient(circle,rgba(196,160,96,.07),transparent);pointer-events:none"></div>
+  <div style="max-width:600px;position:relative">
+    <div class="s-eyebrow" data-reveal="up">We're Here For You</div>
+    <h1 class="s-h2" style="font-size:clamp(44px,6vw,88px);line-height:.92;margin-bottom:24px" data-reveal="up">
+      Get in <em>Touch</em>
+    </h1>
+    <p class="s-desc" data-reveal="up" data-delay="1">
+      Every message is read by a real person. We typically respond within 24 hours — often sooner.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT LAYOUT -->
+<div class="contact-layout">
+
+  <!-- INFO PANEL -->
+  <div class="contact-info">
+    <div class="section-head" data-reveal="up">
+      <div class="s-eyebrow">Reach Us</div>
+      <h2 class="s-h2" style="font-size:clamp(28px,3vw,44px)">How to find <em>us</em></h2>
+    </div>
+
+    <div style="margin-top:36px" data-reveal="up" data-delay="1">
+      <div class="contact-channel">
+        <span class="cc-icon">✉</span>
+        <div>
+          <span class="cc-title">Email</span>
+          <a class="cc-value" data-brand-email href="#">hello@yourbrand.com</a>
+          <span class="cc-note">Responses within 24 hours</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">💬</span>
+        <div>
+          <span class="cc-title">Live Chat</span>
+          <span class="cc-value">Available on our website</span>
+          <span class="cc-note">Mon–Fri · Business hours</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">📍</span>
+        <div>
+          <span class="cc-title">Address</span>
+          <span class="cc-value" id="brand-address">Your Address Here</span>
+          <span class="cc-note">Update in js/config.js</span>
+        </div>
+      </div>
+      <div class="contact-channel">
+        <span class="cc-icon">📸</span>
+        <div>
+          <span class="cc-title">Instagram</span>
+          <a class="cc-value" id="brand-insta" href="#" target="_blank" rel="noopener">@yourbrand</a>
+          <span class="cc-note">DMs answered daily</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map placeholder -->
+    <div class="map-placeholder" data-reveal="up">
+      <div class="map-pin"></div>
+      <div class="map-pin"></div>
+      <div class="map-pin"></div>
+      <div class="map-label">
+        <div style="font-size:22px;margin-bottom:8px">📍</div>
+        <p style="font-family:var(--f-serif);font-style:italic;font-size:14px;color:rgba(240,232,220,.3)" id="map-addr">Your Location</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div class="contact-form-panel">
+    <div class="section-head" data-reveal="up">
+      <div class="s-eyebrow">Send a Message</div>
+      <h2 class="s-h2" style="font-size:clamp(28px,3vw,44px)">We'd love to <em>hear</em> from you</h2>
+    </div>
+
+    <form id="contact-form" style="margin-top:36px" data-reveal="up" data-delay="1">
+      <div class="co-fields">
+        <div class="f-row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="f-group">
+            <label class="f-lbl" for="cf-fn">First Name *</label>
+            <input class="f-in" type="text" id="cf-fn" placeholder="First name" required>
+          </div>
+          <div class="f-group">
+            <label class="f-lbl" for="cf-ln">Last Name *</label>
+            <input class="f-in" type="text" id="cf-ln" placeholder="Last name" required>
+          </div>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="cf-email">Email Address *</label>
+          <input class="f-in" type="email" id="cf-email" placeholder="you@example.com" required>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="cf-subject">Subject *</label>
+          <select class="f-sel" id="cf-subject" required>
+            <option value="">Select a topic…</option>
+            <option>Order &amp; Shipping</option>
+            <option>Returns &amp; Refunds</option>
+            <option>Product Advice</option>
+            <option>Wholesale &amp; Press</option>
+            <option>Sustainability Enquiry</option>
+            <option>Career Opportunities</option>
+            <option>General Enquiry</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="cf-order">Order Number (if applicable)</label>
+          <input class="f-in" type="text" id="cf-order" placeholder="ORD-XXXXXXX">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl" for="cf-message">
+            Your Message *
+            <span id="cf-chars" style="float:right;font-size:9px;color:rgba(240,232,220,.25);letter-spacing:.2em;font-weight:200">0 / 1000</span>
+          </label>
+          <textarea class="f-in" id="cf-message" style="min-height:120px;resize:vertical;line-height:1.7;font-style:italic" placeholder="How can we help you?" required maxlength="1000"></textarea>
+        </div>
+
+        <!-- Attachment -->
+        <div class="f-group">
+          <label class="f-lbl">Attachment (optional)</label>
+          <div class="dropzone" id="dropzone" onclick="document.getElementById('cf-file').click()">
+            <span style="font-family:var(--f-serif);font-style:italic;font-size:14px;color:rgba(240,232,220,.3)">
+              Drag a file here, or click to browse
+            </span>
+            <input type="file" id="cf-file" style="display:none" accept="image/*,.pdf">
+          </div>
+          <p id="cf-file-name" style="font-size:10px;color:var(--gold);margin-top:6px;display:none"></p>
+        </div>
+
+        <!-- Privacy -->
+        <label class="check-wrap">
+          <input type="checkbox" id="cf-privacy" required>
+          <div class="check-box"></div>
+          <span class="check-lbl">I agree to the <a href="#" style="color:rgba(196,160,96,.5)">Privacy Policy</a> and consent to my data being used to respond to my enquiry. *</span>
+        </label>
+      </div>
+
+      <div id="cf-error" style="display:none;color:var(--rose);font-size:12px;padding:10px 14px;border:1px solid rgba(200,120,96,.3);background:rgba(200,120,96,.05);margin-bottom:16px"></div>
+
+      <button type="submit" class="form-submit" id="cf-submit"><span>Send Message</span></button>
+
+      <div id="cf-success" style="display:none;margin-top:20px;padding:20px;border:1px solid rgba(122,144,112,.3);background:rgba(122,144,112,.06);text-align:center">
+        <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:var(--sage)">
+          ✓ Message sent! We'll reply within 24 hours.
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FAQ SECTION -->
+<section class="faq-section" id="faq">
+  <div class="section-head" data-reveal="up">
+    <div class="s-eyebrow">Quick Answers</div>
+    <h2 class="s-h2">Frequently Asked <em>Questions</em></h2>
+  </div>
+  <!-- FAQ items populated from config — add your real FAQs below -->
+  <div class="faq-list stagger" id="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q">What is your shipping policy? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">We offer free standard shipping on all orders over $150. Express (2–3 days) and overnight options are available at checkout. All orders are carefully packed and include a packing slip. International shipping is available to select countries.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">How do I return or exchange a product? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">We offer 30-day hassle-free returns on all products. Simply contact us at <span data-brand-email>hello@yourbrand.com</span> with your order number and we'll arrange a return. Refunds are processed within 5–7 business days of receiving the return.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">Are your products suitable for sensitive skin? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">All our formulas are dermatologist-tested and allergy-tested. We avoid the most common irritants. We always recommend a patch test before full application. Check each product's "Suitable for" section on the product page for specific guidance.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">Do you offer wholesale or press samples? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — we work with select retailers, spas, and press. Please use the contact form above selecting "Wholesale & Press" and include details about your business or publication. We typically respond within 48 hours.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">How does your loyalty programme work? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Every purchase earns loyalty points — 1 point per $1 spent. Points can be redeemed for discounts and exclusive products. Members also receive birthday rewards, early access to new products, and exclusive members-only offers. Create an account to start earning.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">When will my order arrive? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">Standard shipping: 5–7 business days. Express: 2–3 business days. Overnight: next business day. You will receive a tracking number by email once your order has been dispatched. Processing time is 1–2 business days.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">Are your products vegan? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">The majority of our products are 100% vegan. Products that contain vegan ingredients are clearly labelled on the product page. All our products are cruelty-free — never tested on animals, ever.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q">Can I cancel or change my order? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><div class="faq-a-inner">We process orders quickly, but please contact us as soon as possible if you need to cancel or change your order. If your order has already been dispatched, you can return it under our 30-day return policy.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<footer style="padding:52px var(--pad) 36px;background:#040302;border-top:1px solid var(--line)">
+  <div class="ft-bottom">
+    <a href="../index.html" class="ft-brand" style="font-size:15px" data-brand>YOUR BRAND</a>
+    <span class="ft-copy">© <span id="ft-yr"></span> <span data-brand>YOUR BRAND</span>. All rights reserved.</span>
+    <div class="ft-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Accessibility</a></div>
+  </div>
+</footer>
+
+<script src="../js/config.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/store.js"></script>
+<script src="../js/ui.js"></script>
+<script>
+'use strict';
+document.getElementById('ft-yr').textContent = new Date().getFullYear();
+
+// Populate from config
+document.getElementById('brand-address').textContent = STORE.BRAND_ADDRESS || 'Your Address Here';
+document.getElementById('map-addr').textContent       = STORE.BRAND_ADDRESS || 'Your Location';
+const instaEl = document.getElementById('brand-insta');
+if (instaEl) {
+  const ig = STORE.BRAND_SOCIAL?.instagram || '#';
+  instaEl.href = ig;
+  instaEl.textContent = ig.includes('instagram.com') ? '@' + ig.split('/').pop() : ig;
+}
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item   = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
+    const icon   = btn.querySelector('.faq-icon');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      const a = i.querySelector('.faq-a');
+      const ic = i.querySelector('.faq-icon');
+      if (a)  { a.style.maxHeight = '0'; a.style.padding = '0 24px'; }
+      if (ic)   ic.textContent = '+';
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 60 + 'px';
+      answer.style.padding   = '0 24px 20px';
+      icon.textContent       = '×';
+    }
+  });
+});
+
+// Char counter
+const msgArea = document.getElementById('cf-message');
+const charCount = document.getElementById('cf-chars');
+msgArea?.addEventListener('input', () => {
+  if (charCount) charCount.textContent = msgArea.value.length + ' / 1000';
+});
+
+// Dropzone
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('cf-file');
+const fileNameEl = document.getElementById('cf-file-name');
+dropzone?.addEventListener('dragover',  e => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone?.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone?.addEventListener('drop', e => {
+  e.preventDefault(); dropzone.classList.remove('drag');
+  const file = e.dataTransfer?.files[0];
+  if (file && fileNameEl) { fileNameEl.textContent = '✦ ' + file.name; fileNameEl.style.display = 'block'; }
+});
+fileInput?.addEventListener('change', () => {
+  const file = fileInput.files?.[0];
+  if (file && fileNameEl) { fileNameEl.textContent = '✦ ' + file.name; fileNameEl.style.display = 'block'; }
+});
+
+// Privacy checkbox
+document.getElementById('cf-privacy')?.addEventListener('change', function() {
+  const box = this.parentElement.querySelector('.check-box');
+  if (box) { box.style.background = this.checked ? 'var(--gold)' : ''; box.style.borderColor = this.checked ? 'var(--gold)' : ''; box.textContent = this.checked ? '✓' : ''; }
+});
+
+// Form submission
+document.getElementById('contact-form')?.addEventListener('submit', e => {
+  e.preventDefault();
+  const errEl = document.getElementById('cf-error');
+  const btn   = document.getElementById('cf-submit');
+  const successEl = document.getElementById('cf-success');
+
+  // Validate
+  const fname   = document.getElementById('cf-fn')?.value.trim();
+  const email   = document.getElementById('cf-email')?.value.trim();
+  const subject = document.getElementById('cf-subject')?.value;
+  const message = document.getElementById('cf-message')?.value.trim();
+  const privacy = document.getElementById('cf-privacy')?.checked;
+
+  if (!fname || !email || !subject || message.length < 10 || !privacy) {
+    if (errEl) { errEl.textContent = 'Please fill in all required fields and accept the privacy policy.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if (errEl) errEl.style.display = 'none';
+
+  // Simulate send (replace with real email service: EmailJS, Formspree, etc.)
+  btn.querySelector('span').textContent = 'Sending…';
+  btn.style.background = 'var(--dust)';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    e.target.reset();
+    msgArea.style.height = '';
+    if (charCount) charCount.textContent = '0 / 1000';
+    if (fileNameEl) { fileNameEl.textContent = ''; fileNameEl.style.display = 'none'; }
+    btn.querySelector('span').textContent = 'Message Sent ✦';
+    btn.style.background = 'var(--sage)';
+    if (successEl) successEl.style.display = 'block';
+    if (typeof showToast !== 'undefined') showToast("Message sent! We'll reply within 24 hours.", '✦');
+    setTimeout(() => { btn.querySelector('span').textContent = 'Send Message'; btn.style.background = ''; btn.disabled = false; }, 5000);
+  }, 1600);
+});
+
+// Connect to real email service
+// Option 1 — Formspree (free, no backend needed):
+//   Change <form> action to "https://formspree.io/f/YOUR_FORM_ID"
+//   method="POST" and remove the JS submit handler above
+//
+// Option 2 — EmailJS (free tier, no backend):
+//   Add <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+//   Replace setTimeout above with:
+//   emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', { from_name: fname, email, subject, message })
+</script>
+</body>
+</html>

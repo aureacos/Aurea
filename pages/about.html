@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story | Your Brand</title>
+<link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+<div id="page-loader" aria-hidden="true">
+  <div class="ld-logo" data-brand>YOUR BRAND</div>
+  <div class="ld-sub">Our Story</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+<button id="back-top">↑</button>
+<div id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-head"><div><div class="cart-head-title">Your Bag</div><div class="cart-head-count" id="cart-count-lbl">0 items</div></div><button id="cart-close-btn">✕</button></div>
+  <div id="cart-items-list"></div>
+  <div id="cart-empty-state"><div class="cart-empty-icon">✦</div><p class="cart-empty-txt">Your bag is empty.</p></div>
+  <div id="cart-footer" style="display:none">
+    <div class="cart-subtotal-row"><span class="cart-sub-lbl">Subtotal</span><span id="cart-total-price">$0.00</span></div>
+    <p class="cart-ship-note">Free shipping on orders over $150</p>
+    <button id="cart-checkout-btn">Proceed to Checkout</button>
+    <a href="checkout.html" class="cart-continue-link">Checkout</a>
+  </div>
+</aside>
+<div id="search-overlay">
+  <button id="search-close-btn">✕ Close</button>
+  <div class="search-wrap"><input type="text" class="search-input" placeholder="Search products…" autocomplete="off"></div>
+  <div id="search-results"></div>
+</div>
+<div id="mobile-menu">
+  <nav>
+    <a href="../index.html" class="mob-link">Home <span>→</span></a>
+    <a href="shop.html"     class="mob-link">Shop <span>→</span></a>
+    <a href="login.html"    class="mob-link">Account <span>→</span></a>
+  </nav>
+</div>
+<div class="announce-bar" id="announce-bar">
+  <p>Free shipping on orders over $150 · Free sample with every order</p>
+  <button class="announce-close" id="announce-close">✕</button>
+</div>
+<header id="main-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span data-brand>YOUR BRAND</span><sub data-brand-tagline></sub></a>
+    <nav class="nav-links">
+      <a href="shop.html?cat=skincare"  class="nav-link">Skincare</a>
+      <a href="shop.html?cat=makeup"    class="nav-link">Makeup</a>
+      <a href="shop.html?cat=fragrance" class="nav-link">Fragrance</a>
+      <a href="about.html"              class="nav-link active">Maison</a>
+      <a href="contact.html"            class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-open-btn">⌕</button>
+      <a href="wishlist.html" class="nav-icon-btn" style="position:relative">♡<span class="badge wishlist-badge">0</span></a>
+      <a href="login.html"    class="nav-icon-btn"><span class="auth-avatar">👤</span></a>
+      <button class="nav-icon-btn" id="cart-btn" style="position:relative">🛍<span class="badge cart-badge">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section style="padding:170px var(--pad) 90px;background:var(--ink);position:relative;overflow:hidden;border-bottom:1px solid var(--line)">
+  <div style="position:absolute;inset:0;pointer-events:none">
+    <div style="position:absolute;width:600px;height:600px;top:-200px;right:-100px;border-radius:50%;filter:blur(100px);background:radial-gradient(circle,rgba(196,160,96,.08),transparent);animation:orbf 12s ease-in-out infinite"></div>
+    <div style="position:absolute;width:300px;height:300px;bottom:-100px;left:100px;border-radius:50%;filter:blur(100px);background:radial-gradient(circle,rgba(200,120,96,.06),transparent);animation:orbf 9s ease-in-out infinite reverse"></div>
+  </div>
+  <div style="max-width:700px;position:relative">
+    <div class="s-eyebrow" data-reveal="up"><span data-brand-tagline>Our Maison</span></div>
+    <h1 class="s-h2" style="font-size:clamp(48px,7vw,100px);line-height:.9;margin-bottom:28px" data-reveal="up">
+      Our<br><em>Story</em>
+    </h1>
+    <p class="s-desc" data-reveal="up" data-delay="1">
+      Every great brand starts with a belief. Ours is simple: beauty should be honest, effective, and kind — to your skin and to the world.
+    </p>
+    <p style="font-family:var(--f-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.35);line-height:1.9;margin-top:14px;max-width:560px" data-reveal="up" data-delay="2">
+      <em>Fill in your real brand story below — edit this page to tell customers who you are, why you started, and what you believe in. This is your most powerful sales tool.</em>
+    </p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-row mrow-fwd">
+    <span class="mq-word mq-outline">PASSION</span><span class="mq-word mq-fill">SCIENCE</span>
+    <span class="mq-word mq-outline">BEAUTY</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">HONEST</span><span class="mq-word mq-fill">PURE</span>
+    <span class="mq-word mq-outline">PASSION</span><span class="mq-word mq-fill">SCIENCE</span>
+    <span class="mq-word mq-outline">BEAUTY</span><span class="mq-word mq-fill">NATURE</span>
+    <span class="mq-word mq-outline">HONEST</span><span class="mq-word mq-fill">PURE</span>
+  </div>
+</div>
+
+<!-- FOUNDER SECTION -->
+<section style="padding:var(--section) var(--pad);background:var(--char);display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center" id="story">
+  <!-- Visual -->
+  <div data-reveal="left" style="position:relative">
+    <div style="aspect-ratio:3/4;background:linear-gradient(150deg,#1e1008,#3a1810,#1a0c06);position:relative;overflow:hidden;border:1px solid var(--line)">
+      <!-- Replace with your founder/brand photo -->
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:rgba(240,232,220,.15);text-align:center;padding:32px">
+        <div style="font-size:40px">📸</div>
+        <p style="font-family:var(--f-serif);font-style:italic;font-size:14px;line-height:1.7">
+          Add your founder photo here.<br>
+          Replace this div with:<br>
+          <code style="font-family:monospace;font-size:11px;color:rgba(196,160,96,.5)">&lt;img src="assets/founder.jpg"&gt;</code>
+        </p>
+      </div>
+    </div>
+    <!-- Est. badge -->
+    <div style="position:absolute;bottom:-20px;right:-20px;width:120px;height:120px;border-radius:50%;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+      <span style="font-family:var(--f-display);font-size:28px;color:var(--void);line-height:1" data-brand-est>2025</span>
+      <span style="font-size:7px;letter-spacing:.25em;text-transform:uppercase;color:rgba(7,5,4,.55);margin-top:2px;text-align:center">Est.</span>
+    </div>
+  </div>
+  <!-- Text -->
+  <div data-reveal="right">
+    <div class="s-eyebrow" style="margin-bottom:18px">The Founders</div>
+    <h2 class="s-h2" style="margin-bottom:24px">Your story<br>goes <em>here</em></h2>
+    <!-- EDIT THIS SECTION WITH YOUR REAL BRAND STORY -->
+    <p style="font-family:var(--f-serif);font-style:italic;font-size:17px;line-height:1.9;color:rgba(240,232,220,.55);margin-bottom:16px">
+      Tell customers why you started this brand. What problem were you solving? What moment made you decide to create something of your own?
+    </p>
+    <p style="font-family:var(--f-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.4);line-height:1.9;margin-bottom:28px">
+      The most powerful brands have authentic stories. Share yours here — your background, your inspiration, your mission. Customers connect with real people, not faceless companies.
+    </p>
+    <blockquote style="font-family:var(--f-serif);font-style:italic;font-size:20px;color:rgba(240,232,220,.65);line-height:1.6;margin:28px 0;padding-left:20px;border-left:2px solid var(--gold)">
+      "Add your founder quote here — something that captures your vision and values."
+    </blockquote>
+    <span style="font-family:var(--f-serif);font-style:italic;font-size:20px;color:var(--gold);display:block;margin-bottom:4px">Your Name</span>
+    <span style="font-size:8.5px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Founder &amp; CEO, <span data-brand>Your Brand</span></span>
+    <div style="margin-top:36px">
+      <a href="shop.html" class="btn btn-gold magnetic"><span>Explore Our Collection</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:72px var(--pad);background:var(--ink);display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background-color:var(--ink)">
+  <div style="grid-column:1/-1;height:1px;background:var(--line);margin-bottom:2px"></div>
+  <div style="padding:32px 0;border-right:1px solid var(--line)" data-reveal="up">
+    <span class="count-up" data-target="100" data-suffix="%" style="font-family:var(--f-serif);font-size:48px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:7px">100%</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Cruelty Free</span>
+  </div>
+  <div style="padding:32px 24px;border-right:1px solid var(--line)" data-reveal="up" data-delay="1">
+    <span id="stat-products" style="font-family:var(--f-serif);font-size:48px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:7px">—</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Products</span>
+  </div>
+  <div style="padding:32px 24px;border-right:1px solid var(--line)" data-reveal="up" data-delay="2">
+    <span style="font-family:var(--f-serif);font-size:48px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:7px" data-brand-est>2025</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Year Founded</span>
+  </div>
+  <div style="padding:32px 24px" data-reveal="up" data-delay="3">
+    <span class="count-up" data-target="30" data-suffix=" day" style="font-family:var(--f-serif);font-size:48px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:7px">30</span>
+    <span style="font-size:8px;font-weight:200;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,220,.28)">Day Returns</span>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="padding:var(--section) var(--pad);background:var(--char)" id="values">
+  <div class="section-head" data-reveal="up">
+    <div class="s-eyebrow">Our Commitments</div>
+    <h2 class="s-h2">What we <em>stand</em> for</h2>
+    <p class="s-desc">These are not marketing statements. They are the principles we built this brand on from day one.</p>
+  </div>
+  <div class="val-grid">
+    <div class="val-card" data-reveal="up">
+      <div class="val-icon">🌿</div>
+      <span class="val-title">Pure Ingredients</span>
+      <p class="val-desc">We source every ingredient with intention. No parabens, no sulfates, no harmful chemicals — ever. What goes on your skin matters as much as what goes in your body.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="1">
+      <div class="val-icon">🐇</div>
+      <span class="val-title">Cruelty Free Forever</span>
+      <p class="val-desc">Every product is tested by consenting human volunteers only. We will never compromise on this — it is a founding principle, not a marketing badge.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="2">
+      <div class="val-icon">♻️</div>
+      <span class="val-title">Sustainable Packaging</span>
+      <p class="val-desc">We use recycled and recyclable materials wherever possible. Our goal is to make our packaging as beautiful and responsible as the products inside.</p>
+    </div>
+    <div class="val-card" data-reveal="up" data-delay="3">
+      <div class="val-icon">✦</div>
+      <span class="val-title">Radical Transparency</span>
+      <p class="val-desc">Full ingredient disclosure on every product. No hiding behind "fragrance" or "proprietary blends." You deserve to know exactly what you're putting on your skin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section style="padding:var(--section) var(--pad);background:var(--ink)" id="sustainability">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div data-reveal="left">
+      <div class="s-eyebrow" style="margin-bottom:18px">Sustainability</div>
+      <h2 class="s-h2" style="margin-bottom:22px">Better for you.<br><em>Better for earth.</em></h2>
+      <p style="font-family:var(--f-serif);font-style:italic;font-size:16px;color:rgba(240,232,220,.48);line-height:1.9;margin-bottom:16px">
+        We believe that a successful beauty brand shouldn't come at the cost of the planet. Every decision we make — from ingredient sourcing to packaging design — is made with sustainability in mind.
+      </p>
+      <p style="font-family:var(--f-serif);font-style:italic;font-size:15px;color:rgba(240,232,220,.38);line-height:1.9;margin-bottom:32px">
+        Add your specific sustainability commitments here. Tell customers what you're actually doing — refill programmes, recycled materials, carbon offsetting, charitable partnerships, etc.
+      </p>
+      <a href="shop.html" class="btn btn-outline magnetic"><span>Shop Responsibly</span></a>
+    </div>
+    <div data-reveal="right">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)">
+        <div style="background:var(--char);padding:32px 28px">
+          <div style="font-size:28px;margin-bottom:12px">🌱</div>
+          <span style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px">Packaging</span>
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.38);line-height:1.7">Recyclable, FSC-certified or recycled materials wherever possible.</p>
+        </div>
+        <div style="background:var(--char);padding:32px 28px">
+          <div style="font-size:28px;margin-bottom:12px">🤝</div>
+          <span style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px">Sourcing</span>
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.38);line-height:1.7">Ethically sourced ingredients with fair pay for farmers and suppliers.</p>
+        </div>
+        <div style="background:var(--char);padding:32px 28px">
+          <div style="font-size:28px;margin-bottom:12px">🌍</div>
+          <span style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px">Carbon</span>
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.38);line-height:1.7">Working toward carbon-neutral shipping and operations.</p>
+        </div>
+        <div style="background:var(--char);padding:32px 28px">
+          <div style="font-size:28px;margin-bottom:12px">💚</div>
+          <span style="font-size:9px;font-weight:200;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px">Giving Back</span>
+          <p style="font-family:var(--f-serif);font-style:italic;font-size:13px;color:rgba(240,232,220,.38);line-height:1.7">A portion of every sale supports environmental and social causes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section-pad nl-section" style="background:var(--char)">
+  <div class="nl-inner">
+    <div class="nl-div" data-reveal="up" aria-hidden="true"></div>
+    <div class="section-head center" data-reveal="up">
+      <div class="s-eyebrow center">Stay Connected</div>
+      <h2 class="s-h2">Join our <em>community</em></h2>
+    </div>
+    <p class="nl-desc" data-reveal="up" data-delay="1">Be first to know about new products, exclusive offers, and the stories behind our formulas.</p>
+    <form class="newsletter-form" data-reveal="up" data-delay="2">
+      <input type="email" class="nl-input" placeholder="Your email address" required>
+      <button type="submit" class="nl-btn">Subscribe</button>
+    </form>
+    <p class="nl-note" data-reveal="up" data-delay="3">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<footer style="padding:52px var(--pad) 36px;background:#040302;border-top:1px solid var(--line)">
+  <div class="ft-bottom">
+    <a href="../index.html" class="ft-brand" style="font-size:15px" data-brand>YOUR BRAND</a>
+    <span class="ft-copy">© <span id="ft-yr"></span> <span data-brand>YOUR BRAND</span>. All rights reserved.</span>
+    <div class="ft-legal">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/config.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/store.js"></script>
+<script src="../js/ui.js"></script>
+<script>
+document.getElementById('ft-yr').textContent = new Date().getFullYear();
+// Product count stat
+const statEl = document.getElementById('stat-products');
+if (statEl) statEl.textContent = PRODUCTS_DB.length || '—';
+// Est. year from config
+document.querySelectorAll('[data-brand-est]').forEach(el => el.textContent = STORE.BRAND_EST || '2025');
+</script>
+</body>
+</html>
